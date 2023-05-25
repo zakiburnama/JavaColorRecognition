@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -20,6 +19,8 @@ import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -31,10 +32,6 @@ import java.util.List;
 
 public class CameraActivity extends org.opencv.android.CameraActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
-//    private CameraBridgeViewBase mOpenCvCameraView;
-
-    TextView ttextView;
-
     private Scalar lowerBound;  // Lower color range for detection
     private Scalar upperBound;  // Upper color range for detection
 
@@ -45,11 +42,13 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     private Integer midHor;
     private Integer midVer;
 
+    Point point1, point2, point3, point4, point5, point6,
+            pointTopLeft1, pointTopLeft2, pointMidLeft1, pointMidLeft2, pointBotLeft1, pointBotLeft2,
+            pointTopRight1, pointTopRight2, pointMidRight1, pointMidRight2, pointBotRight1, pointBotRight2;
+
     private List<MatOfPoint> contours;  // Detected contours
 
     private static final String TAG = "CameraActivity";
-//    private Mat mRgba;
-    private Mat mGrey;
     private CameraBridgeViewBase mOpenCVCamera;
 
     private BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
@@ -88,9 +87,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         // Set the color range for detection (example: detecting blue color)
         lowerBound = new Scalar(100, 100, 100);
         upperBound = new Scalar(255, 255, 255);
-
-        ttextView = (TextView) findViewById(R.id.textView);
-        ttextView.setText("WWW");
     }
 
     @Override
@@ -130,6 +126,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         }
     }
+
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -138,21 +135,48 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
             mOpenCVCamera.disableView();
         }
     }
+
     @Override
     public void onCameraViewStarted(int width, int height){
-        Log.i(TAG, "onCameraViewStarted lebar = " + width + " tinggi = " + height );
-//        mRgba = new Mat(height,width, CvType.CV_8UC4);
-//        mGrey = new Mat(height,width, CvType.CV_8UC1);
-
         midHor = width / 2;
         midVer = height / 2;
+
+        // MID
+        point1 = new Point(midHor-50, midVer-50);
+        point2 = new Point(midHor+50, midVer+50);
+        // MID TOP
+        point3 = new Point(midHor-50-120, midVer-50);
+        point4 = new Point(midHor+50-120, midVer+50);
+        // MID BOT
+        point5 = new Point(midHor-50+120, midVer-50);
+        point6 = new Point(midHor+50+120, midVer+50);
+
+        // TOP LEFT
+        pointTopLeft1 = new Point(midHor-50-120, midVer-50+120);
+        pointTopLeft2 = new Point(midHor+50-120, midVer+50+120);
+        // MID LEFT
+        pointMidLeft1 = new Point(midHor-50, midVer-50+120);
+        pointMidLeft2 = new Point(midHor+50, midVer+50+120);
+        // RIGHT LEFT
+        pointBotLeft1 = new Point(midHor-50+120, midVer-50+120);
+        pointBotLeft2 = new Point(midHor+50+120, midVer+50+120);
+
+        // TOP RIGHT
+        pointTopRight1 = new Point(midHor-50-120, midVer-50-120);
+        pointTopRight2 = new Point(midHor+50-120, midVer+50-120);
+        // MID RIGHT
+        pointMidRight1 = new Point(midHor-50, midVer-50-120);
+        pointMidRight2 = new Point(midHor+50, midVer+50-120);
+        // RIGHT RIGHT
+        pointBotRight1 = new Point(midHor-50+120, midVer-50-120);
+        pointBotRight2 = new Point(midHor+50+120, midVer+50-120);
 
         mRgba = new Mat(height, width, CvType.CV_8UC4);
         mHsv = new Mat(height, width, CvType.CV_8UC3);
         mMask = new Mat(height, width, CvType.CV_8UC1);
         contours = new ArrayList<>();
-
     }
+
     @Override
     public void onCameraViewStopped(){
 //        Log.i(TAG, "onCameraViewStopped ");
@@ -181,42 +205,73 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         } else {
             color = "RED";
         }
-
         return color;
     }
 
     @Override
     public Mat onCameraFrame(@NonNull CameraBridgeViewBase.CvCameraViewFrame inputFrame){
-        Log.i(TAG, "onCameraFrame ");
         mRgba = inputFrame.rgba();
-        mGrey = inputFrame.gray();
 
-//        double[] pixelValue = mRgba.get(0, 0);
-//        double[] nilaiHSV = mHsv.get(0, 0);
-        double[] pixelValue = mRgba.get(midHor, midVer);
-        double[] nilaiHSV = mHsv.get(midHor, midVer);
+        // MID TOP
+        double[] pixelValue2 = mRgba.get(midHor-120, midVer+120-120);
+        Scalar color2 = new Scalar(pixelValue2);
+        Imgproc.rectangle (mRgba, point3, point4, color2, 5);
+        // MID
+        double[] pixelValue1 = mRgba.get(midHor-120, midVer+120);
+        Scalar color1 = new Scalar(pixelValue1);
+        Imgproc.rectangle (mRgba, point1, point2, color1, 5);
+        // MID BOT
+        double[] pixelValue3 = mRgba.get(midHor-120, midVer+120+120);
+        Scalar color3 = new Scalar(pixelValue3);
+        Imgproc.rectangle (mRgba, point5, point6, color3, 5);
+//
+        // TOP LEFT
+        double[] pixelValueTopLeft = mRgba.get(midHor, midVer+120-120);
+        Scalar colorTopLeft = new Scalar(pixelValueTopLeft);
+        Imgproc.rectangle (mRgba, pointTopLeft1, pointTopLeft2, colorTopLeft, 5);
+        // MID LEFT
+        double[] pixelValueMidLeft = mRgba.get(midHor, midVer+120);
+        Scalar colorMidLeft = new Scalar(pixelValueMidLeft);
+        Imgproc.rectangle (mRgba, pointMidLeft1, pointMidLeft2, colorMidLeft, 5);
+        // BOT LEFT
+        double[] pixelValueBotLeft = mRgba.get(midHor, midVer+120+120);
+        Scalar colorBotLeft = new Scalar(pixelValueBotLeft);
+        Imgproc.rectangle (mRgba, pointBotLeft1, pointBotLeft2, colorBotLeft, 5);
+//
+        // TOP RIGHT
+        double[] pixelValueTopRight = mRgba.get(midHor-120-120, midVer+120-120);
+        Scalar colorTopRight = new Scalar(pixelValueTopRight);
+        Imgproc.rectangle (mRgba, pointTopRight1, pointTopRight2, colorTopRight, 5);
+        // MID RIGHT
+        double[] pixelValueMidRight = mRgba.get(midHor-120-120, midVer+120);
+        Scalar colorMidRight = new Scalar(pixelValueMidRight);
+        Imgproc.rectangle (mRgba, pointMidRight1, pointMidRight2, colorMidRight, 5);
+        // BOT RIGHT
+        double[] pixelValueBotRight = mRgba.get(midHor-120-120, midVer+120+120);
+        Scalar colorBotRight = new Scalar(pixelValueBotRight);
+        Imgproc.rectangle (mRgba, pointBotRight1, pointBotRight2, colorBotRight, 5);
 
-        double blue = pixelValue[0];
-        double green = pixelValue[1];
-        double red = pixelValue[2];
-
-        Log.i("TAG", "#### mid " + midHor + " mid " + midVer);
-        Log.d("PixelValue", "#### RGB B: " + blue + ", G: " + green + ", R: " + red);
-
-        // Convert to HSV color space
-        Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
-
-        double hhsv = nilaiHSV[0];
-        String warna = cekWarna(hhsv);
-
-//        ttextView.setText("warna");
-
-        Log.i("TAG", "#### HSV " + hhsv);
-        Log.i("TAG", "#### WARNA " + warna);
-
-        Log.i("TAG", "#### getHSV " + Arrays.toString(mHsv.get(midHor, midVer)));
 
 
+
+//        double[] nilaiHSV = mHsv.get(midHor, midVer);
+//
+//        double hhsv = nilaiHSV[0];
+//        String warna = cekWarna(hhsv);
+//
+//        double blue = pixelValue1[0];
+//        double green = pixelValue1[1];
+//        double red = pixelValue1[2];
+//
+//        Log.i("TAG", "#### pixelValue1 " + Arrays.toString(pixelValue1));
+//        Log.d("PixelValue", "#### RGB B: " + blue + ", G: " + green + ", R: " + red);
+//        Log.i("TAG", "#### HSV " + hhsv);
+//        Log.i("TAG", "#### WARNA " + warna);
+//        Log.i("TAG", "#### getHSV " + Arrays.toString(mHsv.get(midHor, midVer)));
+//
+//        // Convert to HSV color space
+//        Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
+//
 //        // Create a binary mask for color detection
 //        Core.inRange(mHsv, lowerBound, upperBound, mMask);
 //
@@ -228,15 +283,15 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 //        // Find contours in the mask
 //        Imgproc.findContours(mMask, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 //
-//        // Filter and draw contours on the original frame
-//        for (MatOfPoint contour : contours) {
-//            double contourArea = Imgproc.contourArea(contour);
-//            if (contourArea > 1000) {  // Example filter based on contour area
-//                Imgproc.drawContours(mRgba, contours, -1, new Scalar(0, 255, 0), 2);
-//            }
+//        Imgproc.drawContours(mRgba, contours, -1, new Scalar(0, 255, 0), 2); //
+//
+//        for (MatOfPoint m: contours) {
+//            Rect r = Imgproc.boundingRect(m);
+//            Imgproc.rectangle(mRgba, r, new Scalar(255, 0, 0), 2);
 //        }
+//
+//        contours.clear();
 
-//        return  mGrey;
         return  mRgba;
     }
 
