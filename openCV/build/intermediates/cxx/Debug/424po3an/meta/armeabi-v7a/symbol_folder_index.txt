@@ -1,0 +1,1 @@
+D:\Project_Coding\Android_Studio\ColorRecognitionJavaAlpha\openCV\build\intermediates\cxx\Debug\424po3an\obj\armeabi-v7a

@@ -1,0 +1,1 @@
+D:\Project_Coding\Android_Studio\ColorRecognitionJavaAlpha\openCV\build\intermediates\cxx\RelWithDebInfo\466e3z2t\obj\x86
