@@ -1,5 +1,6 @@
 package com.example.colorrecognitionjavaalpha;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -8,8 +9,11 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -32,38 +36,34 @@ import java.util.List;
 
 public class CameraActivity extends org.opencv.android.CameraActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
-    private Scalar lowerBound;  // Lower color range for detection
-    private Scalar upperBound;  // Upper color range for detection
-
     private Mat mRgba;  // Input frame
     private Mat mHsv;  // Frame converted to HSV color space
     private Mat mMask;  // Binary mask for color detection
 
-    private Integer midHor;
-    private Integer midVer;
+    private Button btn;
 
-    Point point1, point2, point3, point4, point5, point6,
+    private String warna;
+
+    private Integer midHor, midVer;
+
+    private Point point1, point2, point3, point4, point5, point6,
             pointTopLeft1, pointTopLeft2, pointMidLeft1, pointMidLeft2, pointBotLeft1, pointBotLeft2,
             pointTopRight1, pointTopRight2, pointMidRight1, pointMidRight2, pointBotRight1, pointBotRight2;
 
     private List<MatOfPoint> contours;  // Detected contours
 
     private static final String TAG = "CameraActivity";
+
     private CameraBridgeViewBase mOpenCVCamera;
 
-    private BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
+    private final BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
-            switch(status){
-                case LoaderCallbackInterface.SUCCESS:{
-                    Log.i(TAG, "opencv is loaded");
-                    mOpenCVCamera.enableView();
-                }
-                default:{
-                    super.onManagerConnected(status);
-                }
-                break;
+            if (status == LoaderCallbackInterface.SUCCESS) {
+                Log.i(TAG, "opencv is loaded");
+                mOpenCVCamera.enableView();
             }
+            super.onManagerConnected(status);
         }
     };
 
@@ -80,13 +80,19 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         setContentView(R.layout.activity_camera);
 
+        btn = findViewById(R.id.button2);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), warna, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         mOpenCVCamera = (CameraBridgeViewBase) findViewById(R.id.frame_surface);
         mOpenCVCamera.setVisibility(SurfaceView.VISIBLE);
         mOpenCVCamera.setCvCameraViewListener(this);
-
-        // Set the color range for detection (example: detecting blue color)
-        lowerBound = new Scalar(100, 100, 100);
-        upperBound = new Scalar(255, 255, 255);
     }
 
     @Override
@@ -179,9 +185,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
     @Override
     public void onCameraViewStopped(){
-//        Log.i(TAG, "onCameraViewStopped ");
-//        mRgba.release();
-
         mRgba.release();
         mHsv.release();
         mMask.release();
@@ -190,7 +193,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
     private String cekWarna(double hue_value) {
         String color = "Undefined";
-        if (hue_value < 5) {
+        if (hue_value < 9) {
             color = "RED";
         } else if (hue_value < 22) {
             color = "ORANGE";
@@ -211,7 +214,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     @Override
     public Mat onCameraFrame(@NonNull CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba = inputFrame.rgba();
-
+//
         // MID TOP
         double[] pixelValue2 = mRgba.get(midHor-120, midVer+120-120);
         Scalar color2 = new Scalar(pixelValue2);
@@ -252,13 +255,17 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         Imgproc.rectangle (mRgba, pointBotRight1, pointBotRight2, colorBotRight, 5);
 
 
+        Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
+
+        double[] hsvValue = mHsv.get(midHor-120, midVer+120);
+        double vhsv = hsvValue[0];
+        warna = cekWarna(vhsv);
+
+        Point point = new Point(midHor, midVer);
+        Imgproc.putText(mRgba, warna, point, 2, 3, color2, 4);
 
 
-//        double[] nilaiHSV = mHsv.get(midHor, midVer);
-//
-//        double hhsv = nilaiHSV[0];
-//        String warna = cekWarna(hhsv);
-//
+
 //        double blue = pixelValue1[0];
 //        double green = pixelValue1[1];
 //        double red = pixelValue1[2];
@@ -268,6 +275,11 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 //        Log.i("TAG", "#### HSV " + hhsv);
 //        Log.i("TAG", "#### WARNA " + warna);
 //        Log.i("TAG", "#### getHSV " + Arrays.toString(mHsv.get(midHor, midVer)));
+
+
+//        // Set the color range for detection (example: detecting blue color)
+//        Scalar lowerBound = new Scalar(100, 100, 100);
+//        Scalar upperBound = new Scalar(130, 255, 255);
 //
 //        // Convert to HSV color space
 //        Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
