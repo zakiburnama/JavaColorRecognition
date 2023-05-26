@@ -191,22 +191,24 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         contours.clear();
     }
 
-    private String cekWarna(double hue_value) {
+    private String cekWarna(double hue, double saturation, double value) {
         String color = "Undefined";
-        if (hue_value < 9) {
-            color = "RED";
-        } else if (hue_value < 22) {
-            color = "ORANGE";
-        } else if (hue_value < 33) {
-            color = "YELLOW";
-        } else if (hue_value < 78) {
-            color = "GREEN";
-        } else if (hue_value < 131) {
-            color = "BLUE";
-        } else if (hue_value < 170) {
-            color = "VIOLET";
+        if (saturation < 70) {
+            color = "WHITE";
+        } else if (value < 70) {
+            color = "BLACK";
         } else {
-            color = "RED";
+            if (hue < 20) {
+                color = "ORANGE";
+            }  else if (hue < 64) {
+                color = "YELLOW";
+            } else if (hue < 90) {
+                color = "GREEN";
+            } else if (hue < 130) {
+                color = "BLUE";
+            } else {
+                color = "RED";
+            }
         }
         return color;
     }
@@ -258,12 +260,19 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
 
         double[] hsvValue = mHsv.get(midHor-120, midVer+120);
-        double vhsv = hsvValue[0];
-        warna = cekWarna(vhsv);
+        double hue = hsvValue[0];
+        double sat = hsvValue[1];
+        double val = hsvValue[2];
 
-        Point point = new Point(midHor, midVer);
-        Imgproc.putText(mRgba, warna, point, 2, 3, color2, 4);
+        warna = cekWarna(hue, sat, val);
 
+        Scalar colorPutih = new Scalar(255, 255, 255);
+
+        Point point = new Point(midHor - 50, midVer);
+        Imgproc.putText(mRgba, warna, point, 3, 1, colorPutih, 3);
+
+        Point pointt = new Point(midHor - 50, midVer + 120);
+        Imgproc.putText(mRgba, String.valueOf(hue), pointt, 3, 1, colorPutih, 3);
 
 
 //        double blue = pixelValue1[0];
