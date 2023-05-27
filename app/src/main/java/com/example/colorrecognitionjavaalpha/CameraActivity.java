@@ -1,6 +1,10 @@
 package com.example.colorrecognitionjavaalpha;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -93,6 +98,28 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         mOpenCVCamera = (CameraBridgeViewBase) findViewById(R.id.frame_surface);
         mOpenCVCamera.setVisibility(SurfaceView.VISIBLE);
         mOpenCVCamera.setCvCameraViewListener(this);
+
+
+        //
+        ImageView drawingImageView = (ImageView) this.findViewById(R.id.imageView2);
+        Bitmap bitmap = Bitmap.createBitmap((int)
+                        getWindowManager().getDefaultDisplay().getWidth(),
+                (int) getWindowManager().getDefaultDisplay().getHeight(),
+                Bitmap.Config.ARGB_8888
+        );
+        Canvas canvas = new Canvas(bitmap);
+        drawingImageView.setImageBitmap(bitmap);
+
+        //
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(10);
+        float leftx = 0;
+        float topy = 0;
+        float rightx = 50;
+        float bottomy = 100;
+        canvas.drawRect(leftx, topy, rightx, bottomy, paint);
     }
 
     @Override
@@ -147,6 +174,11 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         midHor = width / 2;
         midVer = height / 2;
 
+        mRgba = new Mat(height, width, CvType.CV_8UC4);
+        mHsv = new Mat(height, width, CvType.CV_8UC3);
+        mMask = new Mat(height, width, CvType.CV_8UC1);
+        contours = new ArrayList<>();
+
         // MID
         point1 = new Point(midHor-50, midVer-50);
         point2 = new Point(midHor+50, midVer+50);
@@ -176,11 +208,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         // RIGHT RIGHT
         pointBotRight1 = new Point(midHor-50+120, midVer-50-120);
         pointBotRight2 = new Point(midHor+50+120, midVer+50-120);
-
-        mRgba = new Mat(height, width, CvType.CV_8UC4);
-        mHsv = new Mat(height, width, CvType.CV_8UC3);
-        mMask = new Mat(height, width, CvType.CV_8UC1);
-        contours = new ArrayList<>();
     }
 
     @Override
