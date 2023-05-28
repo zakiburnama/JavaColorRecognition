@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -45,7 +46,11 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     private Mat mHsv;  // Frame converted to HSV color space
     private Mat mMask;  // Binary mask for color detection
 
+    private Canvas canvas;
+
     private Button btn;
+
+    String[][] warnaRubik = new String[3][3];
 
     private String warna;
 
@@ -87,39 +92,30 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         btn = findViewById(R.id.button2);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), warna, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
         mOpenCVCamera = (CameraBridgeViewBase) findViewById(R.id.frame_surface);
         mOpenCVCamera.setVisibility(SurfaceView.VISIBLE);
         mOpenCVCamera.setCvCameraViewListener(this);
 
+        //
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
 
         //
         ImageView drawingImageView = (ImageView) this.findViewById(R.id.imageView2);
-        Bitmap bitmap = Bitmap.createBitmap((int)
-                        getWindowManager().getDefaultDisplay().getWidth(),
-                (int) getWindowManager().getDefaultDisplay().getHeight(),
-                Bitmap.Config.ARGB_8888
-        );
-        Canvas canvas = new Canvas(bitmap);
+        Bitmap bitmap = Bitmap.createBitmap((int) width, height, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(bitmap);
         drawingImageView.setImageBitmap(bitmap);
 
         //
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(10);
-        float leftx = 0;
-        float topy = 0;
-        float rightx = 50;
-        float bottomy = 100;
-        canvas.drawRect(leftx, topy, rightx, bottomy, paint);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), warna, Toast.LENGTH_SHORT).show();
+                putWarna();
+            }
+        });
     }
 
     @Override
@@ -225,7 +221,10 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         } else if (value < 70) {
             color = "BLACK";
         } else {
-            if (hue < 20) {
+            if (hue < 2) {
+                color = "RED";
+            }
+            else if (hue < 20) {
                 color = "ORANGE";
             }  else if (hue < 64) {
                 color = "YELLOW";
@@ -238,6 +237,55 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
             }
         }
         return color;
+    }
+
+    private void putWarna() {
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(0);
+
+        int l=10, t=10,
+                r=110, b=110;
+
+
+        for (int i=0; i<3; i++) {
+            if (i > 0) {
+                t+=110;
+                b+=110;
+            }
+            for (int j=0; j<3; j++) {
+                switch (warnaRubik[i][j]) {
+                    case "RED":
+                        paint.setColor(Color.rgb(255,0,0));
+                        break;
+                    case "BLUE":
+                        paint.setColor(Color.rgb(0,0,255));
+                        break;
+                    case "GREEN":
+                        paint.setColor(Color.rgb(0,255,0));
+                        break;
+                    case "YELLOW":
+                        paint.setColor(Color.rgb(255, 255,0));
+                        break;
+                    case "ORANGE":
+                        paint.setColor(Color.rgb(255,120,0));
+                        break;
+                    case "WHITE":
+                        paint.setColor(Color.rgb(255,255,255));
+                        break;
+                    default:
+                        paint.setColor(Color.rgb(0,0,0));
+                        break;
+                }
+                canvas.drawRect(l, t, r, b, paint);
+                l+=110;
+                r+=110;
+                if (j>1) {
+                    l=10;
+                    r=110;
+                }
+            }
+        }
     }
 
     @Override
@@ -286,6 +334,29 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
 
+        // LEFT
+        double[] pixelHSVTL = mHsv.get(midHor, midVer+120-120);
+        warnaRubik[0][0] = cekWarna(pixelHSVTL[0], pixelHSVTL[1], pixelHSVTL[2]);
+        double[] pixelHSVML = mHsv.get(midHor, midVer+120);
+        warnaRubik[1][0] = cekWarna(pixelHSVML[0], pixelHSVML[1], pixelHSVML[2]);
+        double[] pixelHSVBL = mHsv.get(midHor, midVer+120+120);
+        warnaRubik[2][0] = cekWarna(pixelHSVBL[0], pixelHSVBL[1], pixelHSVBL[2]);
+        // MID
+        double[] pixelHSVTM = mHsv.get(midHor-120, midVer+120-120);
+        warnaRubik[0][1] = cekWarna(pixelHSVTM[0], pixelHSVTM[1], pixelHSVTM[2]);
+        double[] pixelHSVMM = mHsv.get(midHor-120, midVer+120);
+        warnaRubik[1][1] = cekWarna(pixelHSVMM[0], pixelHSVMM[1], pixelHSVMM[2]);
+        double[] pixelHSVBM = mHsv.get(midHor-120, midVer+120+120);
+        warnaRubik[2][1] = cekWarna(pixelHSVBM[0], pixelHSVBM[1], pixelHSVBM[2]);
+        // RIGHT
+        double[] pixelHSVTR = mHsv.get(midHor-120-120, midVer+120-120);
+        warnaRubik[0][2] = cekWarna(pixelHSVTR[0], pixelHSVTR[1], pixelHSVTR[2]);
+        double[] pixelHSVMR = mHsv.get(midHor-120-120, midVer+120);
+        warnaRubik[1][2] = cekWarna(pixelHSVMR[0], pixelHSVMR[1], pixelHSVMR[2]);
+        double[] pixelHSVBR = mHsv.get(midHor-120-120, midVer+120+120);
+        warnaRubik[2][2] = cekWarna(pixelHSVBR[0], pixelHSVBR[1], pixelHSVBR[2]);
+
+        //
         double[] hsvValue = mHsv.get(midHor-120, midVer+120);
         double hue = hsvValue[0];
         double sat = hsvValue[1];
@@ -300,45 +371,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         Point pointt = new Point(midHor - 50, midVer + 120);
         Imgproc.putText(mRgba, String.valueOf(hue), pointt, 3, 1, colorPutih, 3);
-
-
-//        double blue = pixelValue1[0];
-//        double green = pixelValue1[1];
-//        double red = pixelValue1[2];
-//
-//        Log.i("TAG", "#### pixelValue1 " + Arrays.toString(pixelValue1));
-//        Log.d("PixelValue", "#### RGB B: " + blue + ", G: " + green + ", R: " + red);
-//        Log.i("TAG", "#### HSV " + hhsv);
-//        Log.i("TAG", "#### WARNA " + warna);
-//        Log.i("TAG", "#### getHSV " + Arrays.toString(mHsv.get(midHor, midVer)));
-
-
-//        // Set the color range for detection (example: detecting blue color)
-//        Scalar lowerBound = new Scalar(100, 100, 100);
-//        Scalar upperBound = new Scalar(130, 255, 255);
-//
-//        // Convert to HSV color space
-//        Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
-//
-//        // Create a binary mask for color detection
-//        Core.inRange(mHsv, lowerBound, upperBound, mMask);
-//
-//        // Apply morphological operations to remove noise
-//        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
-//        Imgproc.dilate(mMask, mMask, kernel);
-//        Imgproc.erode(mMask, mMask, kernel);
-//
-//        // Find contours in the mask
-//        Imgproc.findContours(mMask, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-//
-//        Imgproc.drawContours(mRgba, contours, -1, new Scalar(0, 255, 0), 2); //
-//
-//        for (MatOfPoint m: contours) {
-//            Rect r = Imgproc.boundingRect(m);
-//            Imgproc.rectangle(mRgba, r, new Scalar(255, 0, 0), 2);
-//        }
-//
-//        contours.clear();
 
         return  mRgba;
     }
