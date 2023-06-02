@@ -50,9 +50,9 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
     private Button btn;
 
-    String[][] warnaRubik = new String[3][3];
+    char[][] warnaRubik = new char[3][3];
 
-    private String warna;
+//    private String warna;
 
     private Integer midHor, midVer;
 
@@ -112,7 +112,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), warna, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "WOW", Toast.LENGTH_SHORT).show();
                 putWarna();
             }
         });
@@ -214,26 +214,26 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         contours.clear();
     }
 
-    private String cekWarna(double hue, double saturation, double value) {
-        String color = "Undefined";
+    private char cekWarna(double hue, double saturation, double value) {
+        char color = 'X';
         if (saturation < 70) {
-            color = "WHITE";
+            color = 'W';
         } else if (value < 70) {
-            color = "BLACK";
+            color = 'X';
         } else {
             if (hue < 2) {
-                color = "RED";
+                color = 'R';
             }
             else if (hue < 20) {
-                color = "ORANGE";
+                color = 'O';
             }  else if (hue < 64) {
-                color = "YELLOW";
+                color = 'Y';
             } else if (hue < 90) {
-                color = "GREEN";
+                color = 'G';
             } else if (hue < 130) {
-                color = "BLUE";
+                color = 'B';
             } else {
-                color = "RED";
+                color = 'R';
             }
         }
         return color;
@@ -244,45 +244,80 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeWidth(0);
 
-        int l=10, t=10,
-                r=110, b=110;
+        int l, t,
+                r, b,
+                k=0;
 
+        switch (warnaRubik[1][1]) {
+            case 'R':
+                l=10;   t=190;
+                r=60;   b=240;
+                break;
+            case 'B':
+                l=190;  t=10;
+                r=240;  b=60;
+                break;
+            case 'G':
+                l=190;  t=370;
+                r=240;  b=420;
+                break;
+            case 'Y':
+                l=190;  t=190;
+                r=240;  b=240;
+                break;
+            case 'O':
+                l=370;  t=190;
+                r=420;  b=240;
+                break;
+            case 'W':
+                l=550;  t=190;
+                r=600;  b=240;
+                break;
+            default:
+                l=10;   t=10;
+                r=60;   b=60;
+                break;
+        }
+
+
+        int temptl=l, temptt=t,
+                temptr=r, temptb=b;
 
         for (int i=0; i<3; i++) {
             if (i > 0) {
-                t+=110;
-                b+=110;
+                temptt+=60;
+                temptb+=60;
             }
             for (int j=0; j<3; j++) {
                 switch (warnaRubik[i][j]) {
-                    case "RED":
+                    case 'R':
                         paint.setColor(Color.rgb(255,0,0));
                         break;
-                    case "BLUE":
+                    case 'B':
                         paint.setColor(Color.rgb(0,0,255));
                         break;
-                    case "GREEN":
+                    case 'G':
                         paint.setColor(Color.rgb(0,255,0));
                         break;
-                    case "YELLOW":
+                    case 'Y':
                         paint.setColor(Color.rgb(255, 255,0));
                         break;
-                    case "ORANGE":
+                    case 'O':
                         paint.setColor(Color.rgb(255,120,0));
                         break;
-                    case "WHITE":
+                    case 'W':
                         paint.setColor(Color.rgb(255,255,255));
                         break;
                     default:
                         paint.setColor(Color.rgb(0,0,0));
                         break;
                 }
-                canvas.drawRect(l, t, r, b, paint);
-                l+=110;
-                r+=110;
+                canvas.drawRect(temptl, temptt, temptr, temptb, paint);
+                temptl+=60;
+                temptr+=60;
                 if (j>1) {
-                    l=10;
-                    r=110;
+                    temptl=l;
+                    temptr=r;
                 }
             }
         }
@@ -362,12 +397,12 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         double sat = hsvValue[1];
         double val = hsvValue[2];
 
-        warna = cekWarna(hue, sat, val);
+        char warna = cekWarna(hue, sat, val);
 
         Scalar colorPutih = new Scalar(255, 255, 255);
 
         Point point = new Point(midHor - 50, midVer);
-        Imgproc.putText(mRgba, warna, point, 3, 1, colorPutih, 3);
+        Imgproc.putText(mRgba, String.valueOf(warna), point, 3, 1, colorPutih, 3);
 
         Point pointt = new Point(midHor - 50, midVer + 120);
         Imgproc.putText(mRgba, String.valueOf(hue), pointt, 3, 1, colorPutih, 3);
