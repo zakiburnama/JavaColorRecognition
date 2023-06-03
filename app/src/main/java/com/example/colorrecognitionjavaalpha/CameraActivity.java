@@ -1,5 +1,6 @@
 package com.example.colorrecognitionjavaalpha;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -51,8 +52,13 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     private Button btn;
 
     char[][] warnaRubik = new char[3][3];
+    char[][][] warnaSisiRubik = new char[6][3][3];
 
-//    private String warna;
+    boolean rightIsScanned = false, leftIsScanned = false,
+            frontIsScanned = false, backIsScanned = false,
+            upIsScanned = false, downIsScanned = false;
+
+    private Cube cube = new Cube();
 
     private Integer midHor, midVer;
 
@@ -90,8 +96,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         setContentView(R.layout.activity_camera);
 
-        btn = findViewById(R.id.button2);
-
         mOpenCVCamera = (CameraBridgeViewBase) findViewById(R.id.frame_surface);
         mOpenCVCamera.setVisibility(SurfaceView.VISIBLE);
         mOpenCVCamera.setCvCameraViewListener(this);
@@ -108,14 +112,9 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         canvas = new Canvas(bitmap);
         drawingImageView.setImageBitmap(bitmap);
 
-        //
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "WOW", Toast.LENGTH_SHORT).show();
-                putWarna();
-            }
-        });
+
+        btn = findViewById(R.id.button3);
+        btn.setVisibility(View.GONE);
     }
 
     @Override
@@ -246,39 +245,56 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         int l, t,
                 r, b,
-                k=0;
+                side=0;
 
         switch (warnaRubik[1][1]) {
+            // LEFT = 0
             case 'R':
                 l=10;   t=190;
                 r=60;   b=240;
+                side = 0;
+                leftIsScanned = true;
                 break;
-            case 'B':
+            // UP = 1
+            case 'Y':
                 l=190;  t=10;
                 r=240;  b=60;
+                side = 1;
+                upIsScanned = true;
                 break;
+            // FRONT = 2
             case 'G':
-                l=190;  t=370;
-                r=240;  b=420;
-                break;
-            case 'Y':
                 l=190;  t=190;
                 r=240;  b=240;
+                side = 2;
+                frontIsScanned = true;
                 break;
+            // BACK = 3
+            case 'B':
+                l=550;  t=190;
+                r=600;  b=240;
+                side = 3;
+                backIsScanned = true;
+                break;
+            // RIGHT = 4
             case 'O':
                 l=370;  t=190;
                 r=420;  b=240;
+                side = 4;
+                rightIsScanned = true;
                 break;
+            // DOWN = 5
             case 'W':
-                l=550;  t=190;
-                r=600;  b=240;
+                l=190;  t=370;
+                r=240;  b=420;
+                side = 5;
+                downIsScanned = true;
                 break;
             default:
                 l=10;   t=10;
                 r=60;   b=60;
                 break;
         }
-
 
         int temptl=l, temptt=t,
                 temptr=r, temptb=b;
@@ -289,6 +305,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 temptb+=60;
             }
             for (int j=0; j<3; j++) {
+                warnaSisiRubik[side][i][j] = warnaRubik[i][j];
                 switch (warnaRubik[i][j]) {
                     case 'R':
                         paint.setColor(Color.rgb(255,0,0));
@@ -320,6 +337,12 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                     temptr=r;
                 }
             }
+        }
+
+        if (rightIsScanned && leftIsScanned && upIsScanned && downIsScanned && frontIsScanned && backIsScanned) {
+            btn.setVisibility(View.VISIBLE);
+        } else {
+            btn.setVisibility(View.GONE);
         }
     }
 
@@ -410,4 +433,15 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         return  mRgba;
     }
 
+    @SuppressLint("NonConstantResourceId")
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button2:
+                putWarna();
+                break;
+            case R.id.button3:
+                cube.setAllColors(warnaSisiRubik);
+                break;
+        }
+    }
 }
