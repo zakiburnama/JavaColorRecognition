@@ -58,6 +58,18 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
             frontIsScanned = false, backIsScanned = false,
             upIsScanned = false, downIsScanned = false;
 
+    private String sunflower = new String(), whiteCross = new String(),
+            whiteCorners = new String(), secondLayer = new String(),
+            yellowCross = new String(), OLL = new String(), PLL = new String();
+
+    private String movesToPerform = new String(), movesPerformed = new String();
+
+    private int phase = 0;
+    private String phaseString;
+    //Helps keep track of moves to perform, and allows for painting of moves
+    private int movesIndex = 0;
+
+
     private Cube cube = new Cube();
 
     private Integer midHor, midVer;
@@ -220,10 +232,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         } else if (value < 70) {
             color = 'X';
         } else {
-            if (hue < 2) {
-                color = 'R';
-            }
-            else if (hue < 20) {
+            if (hue < 20) {
                 color = 'O';
             }  else if (hue < 64) {
                 color = 'Y';
@@ -441,6 +450,38 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 break;
             case R.id.button3:
                 cube.setAllColors(warnaSisiRubik);
+
+                sunflower = cube.makeSunflower();
+                whiteCross = cube.makeWhiteCross();
+                whiteCorners = cube.finishWhiteLayer();
+                secondLayer = cube.insertAllEdges();
+                yellowCross = cube.makeYellowCross();
+                OLL = cube.orientLastLayer();
+                PLL = cube.permuteLastLayer();
+
+                movesToPerform = sunflower;
+                movesPerformed = new String();
+
+                movesIndex = 0; phase = 0;
+                phaseString = "Sunflower";
+
+                Log.i("TAG", "#### MTP: " + movesToPerform);
+                Log.i("TAG", "#### sunflower: " + sunflower);
+                Log.i("TAG", "#### whiteCross: " + whiteCross);
+                Log.i("TAG", "#### whiteCorners: " + whiteCorners);
+                Log.i("TAG", "#### secondLayer: " + secondLayer);
+                Log.i("TAG", "#### yellowCross: " + yellowCross);
+                Log.i("TAG", "#### OLL: " + OLL);
+                Log.i("TAG", "#### PLL: " + PLL);
+                Log.i("TAG", "#### MP: " + movesPerformed);
+
+                cube.setAllColors(warnaSisiRubik);
+
+                break;
+            case R.id.button4:
+//                cube.showCube();
+                cube.testTurning();
+                Toast.makeText(this, "WWADA", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
