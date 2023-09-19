@@ -444,6 +444,12 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(0);
+        paint.setColor(Color.rgb(255,255,255));
+
         switch (view.getId()) {
             case R.id.button2:
                 putWarna();
@@ -477,10 +483,15 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
                 cube.setAllColors(warnaSisiRubik);
 
+
+                canvas.drawText("awdad", 10, 600, paint);
+
                 break;
             case R.id.button4:
 //                cube.showCube();
-                cube.testTurning();
+//                cube.testTurning();
+                paint.setTextSize(24);
+                canvas.drawText("awdad", 10, 600, paint);
                 Toast.makeText(this, "WWADA", Toast.LENGTH_SHORT).show();
                 break;
         }
