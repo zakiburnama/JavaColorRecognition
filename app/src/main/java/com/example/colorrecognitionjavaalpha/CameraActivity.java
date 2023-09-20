@@ -1,7 +1,6 @@
 package com.example.colorrecognitionjavaalpha;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -26,18 +25,14 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -358,7 +353,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     @Override
     public Mat onCameraFrame(@NonNull CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba = inputFrame.rgba();
-//
+// Make 9 Rect in middle camera
         // MID TOP
         double[] pixelValue2 = mRgba.get(midHor-120, midVer+120-120);
         Scalar color2 = new Scalar(pixelValue2);
@@ -398,7 +393,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         Scalar colorBotRight = new Scalar(pixelValueBotRight);
         Imgproc.rectangle (mRgba, pointBotRight1, pointBotRight2, colorBotRight, 5);
 
-
+// Save Color
         Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
 
         // LEFT
@@ -423,22 +418,98 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         double[] pixelHSVBR = mHsv.get(midHor-120-120, midVer+120+120);
         warnaRubik[2][2] = cekWarna(pixelHSVBR[0], pixelHSVBR[1], pixelHSVBR[2]);
 
-        //
+        // Tulisan di MID
         double[] hsvValue = mHsv.get(midHor-120, midVer+120);
         double hue = hsvValue[0];
         double sat = hsvValue[1];
         double val = hsvValue[2];
 
-        char warna = cekWarna(hue, sat, val);
+        char warna = cekWarna(hue, sat, val);   // value is string
 
         Scalar colorPutih = new Scalar(255, 255, 255);
 
-        Point point = new Point(midHor - 50, midVer);
-        Imgproc.putText(mRgba, String.valueOf(warna), point, 3, 1, colorPutih, 3);
+        Point pointText = new Point(midHor, midVer);
+        Imgproc.putText(mRgba, String.valueOf(warna), pointText, 3, 1, colorPutih, 3);
 
-        Point pointt = new Point(midHor - 50, midVer + 120);
-        Imgproc.putText(mRgba, String.valueOf(hue), pointt, 3, 1, colorPutih, 3);
+        Point pointTextLeft = new Point(midHor, midVer+120);
+        Imgproc.putText(mRgba, String.valueOf(hue), pointTextLeft, 3, 1, colorPutih, 3);
 
+        //TODO Make Petunjuk Posisi Rubik
+        //Variabel Atas Bawah Kiri Kanan
+        Scalar colorTop = new Scalar(0, 0, 0);
+        Scalar colorBot = new Scalar(0, 0, 0);
+        Scalar colorLef = new Scalar(0, 0, 0);
+        Scalar colorRig = new Scalar(0, 0, 0);
+
+        //Library Warna
+        Scalar GREEN    = new Scalar(90, 255, 0);
+        Scalar RED      = new Scalar(200, 0, 255);
+        Scalar BLUE     = new Scalar(255, 0, 0);
+        Scalar YELLOW   = new Scalar(60, 255, 255);
+        Scalar ORANGE   = new Scalar(20, 128, 255);
+        Scalar WHITE    = new Scalar(255, 255, 255);
+        Scalar BLACK    = new Scalar(0, 0, 0);
+
+        //Percabangan warna
+        switch (warna) {
+            case 'R':
+                colorTop = YELLOW;
+                colorBot = WHITE;
+                colorLef = BLUE;
+                colorRig = GREEN;
+                break;
+            case 'Y':
+                colorTop = ORANGE;
+                colorBot = RED;
+                colorLef = BLACK;
+                colorRig = GREEN;
+                break;
+            case 'G':
+                colorTop = YELLOW;
+                colorBot = WHITE;
+                colorLef = RED;
+                colorRig = ORANGE;
+                break;
+            case 'B':
+                colorTop = YELLOW;
+                colorBot = WHITE;
+                colorLef = ORANGE;
+                colorRig = RED;
+                break;
+            case 'O':
+                colorTop = YELLOW;
+                colorBot = WHITE;
+                colorLef = GREEN;
+                colorRig = BLUE;
+                break;
+            case 'W':
+                colorTop = RED;
+                colorBot = ORANGE;
+                colorLef = BLUE;
+                colorRig = GREEN;
+                break;
+            default:
+                break;
+        }
+
+        // TOP
+        Point pointTopA = new Point(midHor-120-50-50, midVer+120);
+        Point pointTopB = new Point(midHor-120-50-50, midVer-120);
+        Imgproc.line(mRgba, pointTopA, pointTopB, colorTop, 5);
+        // BOT
+        Point pointBotA = new Point(midHor+120+50+50, midVer+120);
+        Point pointBotB = new Point(midHor+120+50+50, midVer-120);
+        Imgproc.line(mRgba, pointBotA, pointBotB, colorBot, 5);
+        // LEFT
+        Point pointLefA = new Point(midHor-120, midVer+120+50+50);
+        Point pointLefB = new Point(midHor+120, midVer+120+50+50);
+        Imgproc.line(mRgba, pointLefA, pointLefB, colorLef, 5);
+        // RIGHT
+        Point pointRigA = new Point(midHor-120, midVer-120-50-50);
+        Point pointRigB = new Point(midHor+120, midVer-120-50-50);
+        Imgproc.line(mRgba, pointRigA, pointRigB, colorRig, 5);
+
+        //
         return  mRgba;
     }
 
