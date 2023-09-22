@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -17,31 +19,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setContentView(R.layout.activity_main);
 
-        //
-        ImageView drawingImageView = (ImageView) this.findViewById(R.id.imageView);
-        Bitmap bitmap = Bitmap.createBitmap((int)
-                getWindowManager().getDefaultDisplay().getWidth(),
-                (int) getWindowManager().getDefaultDisplay().getHeight(),
-                Bitmap.Config.ARGB_8888
-        );
-        Canvas canvas = new Canvas(bitmap);
-        drawingImageView.setImageBitmap(bitmap);
-
-        // 
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(10);
-        float leftx = 20;
-        float topy = 20;
-        float rightx = 50;
-        float bottomy = 100;
-        canvas.drawRect(leftx, topy, rightx, bottomy, paint);
+        // Deklarasi
+        Button btnCamera = findViewById(R.id.button_camera);
+        Button btnContinue = findViewById(R.id.button_continues);
 
         //
-        Button btnCamera = findViewById(R.id.button);
+        MenuFragment menuFragment = new MenuFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragmentContainerView, menuFragment, MenuFragment.class.getSimpleName())
+                .addToBackStack(null)
+                .commit();
+
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

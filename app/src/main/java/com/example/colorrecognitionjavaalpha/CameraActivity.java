@@ -44,7 +44,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
     private Canvas canvas;
 
-    private Button btn;
+    private Button btnNext;
 
     char[][] warnaRubik = new char[3][3];
     char[][][] warnaSisiRubik = new char[6][3][3];
@@ -119,9 +119,14 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         canvas = new Canvas(bitmap);
         drawingImageView.setImageBitmap(bitmap);
 
-
-        btn = findViewById(R.id.button3);
-        btn.setVisibility(View.GONE);
+        // Declare BUTTON
+        Button btnCamera = findViewById(R.id.button_scan);
+        btnCamera.setOnClickListener(this::onClick);
+        Button btnBack = findViewById(R.id.button_back);
+        btnBack.setOnClickListener(this::onClick);
+        btnNext = findViewById(R.id.button_next);
+        btnNext.setOnClickListener(this::onClick);
+        btnNext.setVisibility(View.GONE);
     }
 
     @Override
@@ -344,9 +349,9 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         }
 
         if (rightIsScanned && leftIsScanned && upIsScanned && downIsScanned && frontIsScanned && backIsScanned) {
-            btn.setVisibility(View.VISIBLE);
+            btnNext.setVisibility(View.VISIBLE);
         } else {
-            btn.setVisibility(View.GONE);
+            btnNext.setVisibility(View.GONE);
         }
     }
 
@@ -418,6 +423,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         double[] pixelHSVBR = mHsv.get(midHor-120-120, midVer+120+120);
         warnaRubik[2][2] = cekWarna(pixelHSVBR[0], pixelHSVBR[1], pixelHSVBR[2]);
 
+        // TODO Delete soon
         // Tulisan di MID
         double[] hsvValue = mHsv.get(midHor-120, midVer+120);
         double hue = hsvValue[0];
@@ -434,7 +440,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         Point pointTextLeft = new Point(midHor, midVer+120);
         Imgproc.putText(mRgba, String.valueOf(hue), pointTextLeft, 3, 1, colorPutih, 3);
 
-        //TODO Make Petunjuk Posisi Rubik
+        //TODO value warna masih salah
         //Variabel Atas Bawah Kiri Kanan
         Scalar colorTop = new Scalar(0, 0, 0);
         Scalar colorBot = new Scalar(0, 0, 0);
@@ -522,10 +528,10 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         paint.setColor(Color.rgb(255,255,255));
 
         switch (view.getId()) {
-            case R.id.button2:
+            case R.id.button_scan:
                 putWarna();
                 break;
-            case R.id.button3:
+            case R.id.button_next:
                 cube.setAllColors(warnaSisiRubik);
 
                 sunflower = cube.makeSunflower();
@@ -558,7 +564,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 canvas.drawText("awdad", 10, 600, paint);
 
                 break;
-            case R.id.button4:
+            case R.id.button_back:
 //                cube.showCube();
 //                cube.testTurning();
                 paint.setTextSize(24);
