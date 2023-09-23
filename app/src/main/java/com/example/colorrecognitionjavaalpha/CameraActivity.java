@@ -259,49 +259,49 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         switch (warnaRubik[1][1]) {
             // LEFT = 0
             case 'R':
-                l=10;   t=190;
-                r=60;   b=240;
+                l=10;   t=190-10;
+                r=60;   b=240-10;
                 side = 0;
                 leftIsScanned = true;
                 break;
             // UP = 1
             case 'Y':
-                l=190;  t=10;
-                r=240;  b=60;
+                l=190;  t=10-10;
+                r=240;  b=60-10;
                 side = 1;
                 upIsScanned = true;
                 break;
             // FRONT = 2
             case 'G':
-                l=190;  t=190;
-                r=240;  b=240;
+                l=190;  t=190-10;
+                r=240;  b=240-10;
                 side = 2;
                 frontIsScanned = true;
                 break;
             // BACK = 3
             case 'B':
-                l=550;  t=190;
-                r=600;  b=240;
+                l=550;  t=190-10;
+                r=600;  b=240-10;
                 side = 3;
                 backIsScanned = true;
                 break;
             // RIGHT = 4
             case 'O':
-                l=370;  t=190;
-                r=420;  b=240;
+                l=370;  t=190-10;
+                r=420;  b=240-10;
                 side = 4;
                 rightIsScanned = true;
                 break;
             // DOWN = 5
             case 'W':
-                l=190;  t=370;
-                r=240;  b=420;
+                l=190;  t=370-10;
+                r=240;  b=420-10;
                 side = 5;
                 downIsScanned = true;
                 break;
             default:
-                l=10;   t=10;
-                r=60;   b=60;
+                l=10;   t=10-10;
+                r=60;   b=60-10;
                 break;
         }
 
