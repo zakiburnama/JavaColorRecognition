@@ -6,31 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".MenuFragment">
 
-    <Button
-        android:id="@+id/button_beginner"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BEGINNER"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="70dp"
+        android:text="Pilih Level"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_beginner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/custom_button2"
         android:onClick="onClick"
+        android:text="BEGINNER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_intermediate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button2"
         android:onClick="onClick"
         android:text="INTERMEDIATE"
         app:layout_constraintEnd_toEndOf="@+id/button_beginner"
         app:layout_constraintStart_toStartOf="@+id/button_beginner"
         app:layout_constraintTop_toBottomOf="@+id/button_beginner" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_expert"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button2"
         android:onClick="onClick"
         android:text="EXPERT"
         app:layout_constraintEnd_toEndOf="@+id/button_intermediate"

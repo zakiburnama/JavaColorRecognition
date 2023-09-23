@@ -1,5 +1,6 @@
 package com.example.colorrecognitionjavaalpha;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class MenuFragment extends Fragment {
         btnExpert.setOnClickListener(this::onClick);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_beginner:
