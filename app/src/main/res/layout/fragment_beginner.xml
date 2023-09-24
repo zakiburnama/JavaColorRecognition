@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="70dp"
-        android:text="Lanjut Belajar"
+        android:text="Materi Pemula"
         android:textColor="?attr/colorOnBackground"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -44,145 +44,139 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imgBtn_sunflower"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="12dp"
                 android:adjustViewBounds="true"
+                android:elevation="8dp"
                 android:minHeight="48dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/rubik_step1"
-                android:elevation="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_sunflower"
+                app:layout_constraintStart_toStartOf="@+id/button_sunflower" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_sunflower"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/custom_button2"
                 android:text="SUNFLOWER"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBtn_sunflower"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imgBtn_sunflower" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imgBtn_cross"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="12dp"
                 android:adjustViewBounds="true"
                 android:elevation="8dp"
                 android:minHeight="48dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/rubik_step2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgBtn_sunflower" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_cross"
+                app:layout_constraintStart_toStartOf="@+id/button_cross" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_cross"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/custom_button2"
                 android:text="CROSS"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBtn_cross"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imgBtn_cross" />
+                app:layout_constraintTop_toBottomOf="@+id/button_sunflower" />
 
             <ImageView
                 android:id="@+id/imgBtn_1l"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="12dp"
                 android:adjustViewBounds="true"
                 android:elevation="8dp"
                 android:minHeight="48dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/rubik_step3_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgBtn_cross" />
+                android:src="@drawable/rubik_step3"
+                app:layout_constraintBottom_toBottomOf="@+id/button_1l"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_1l"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/custom_button2"
                 android:text="FIRST LAYER"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBtn_1l"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imgBtn_1l" />
+                app:layout_constraintTop_toBottomOf="@+id/button_cross" />
 
             <ImageView
                 android:id="@+id/imgBtn_2l"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="12dp"
                 android:adjustViewBounds="true"
                 android:elevation="8dp"
                 android:minHeight="48dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/rubik_step4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgBtn_1l" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_2l"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_2l"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/custom_button2"
                 android:text="SECOND LAYER"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBtn_2l"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imgBtn_2l" />
+                app:layout_constraintTop_toBottomOf="@+id/button_1l" />
 
             <ImageView
                 android:id="@+id/imgBtn_oll"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="12dp"
                 android:adjustViewBounds="true"
                 android:elevation="8dp"
                 android:minHeight="48dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/rubik_step5_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgBtn_2l" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_oll"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_oll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/custom_button2"
                 android:text="OLL"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBtn_oll"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imgBtn_oll" />
+                app:layout_constraintTop_toBottomOf="@+id/button_2l" />
 
             <ImageView
                 android:id="@+id/imgBtn_pll"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="12dp"
                 android:adjustViewBounds="true"
                 android:elevation="8dp"
                 android:minHeight="48dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/rubik_step6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgBtn_oll" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_pll"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_pll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="19dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/custom_button2"
                 android:text="PLL"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBtn_pll"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imgBtn_pll" />
+                app:layout_constraintTop_toBottomOf="@+id/button_oll" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

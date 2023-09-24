@@ -7,6 +7,27 @@
     tools:context=".MenuFragment">
 
     <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Hi,"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/baseline_info_24"
+        app:tint="?attr/colorOnBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,42 +41,48 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_beginner"
+        android:id="@+id/button_notation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:background="@drawable/custom_button2"
         android:onClick="onClick"
-        android:text="BEGINNER"
+        android:text="NOTASI"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_beginner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:background="@drawable/custom_button2"
+        android:onClick="onClick"
+        android:text="Layer by Layer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_notation" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_intermediate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="24dp"
         android:background="@drawable/custom_button2"
         android:onClick="onClick"
-        android:text="INTERMEDIATE"
-        app:layout_constraintEnd_toEndOf="@+id/button_beginner"
-        app:layout_constraintStart_toStartOf="@+id/button_beginner"
+        android:text="CFOP"
         app:layout_constraintTop_toBottomOf="@+id/button_beginner" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_expert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="24dp"
         android:background="@drawable/custom_button2"
         android:onClick="onClick"
-        android:text="EXPERT"
-        app:layout_constraintEnd_toEndOf="@+id/button_intermediate"
-        app:layout_constraintStart_toStartOf="@+id/button_intermediate"
+        android:text="----"
         app:layout_constraintTop_toBottomOf="@+id/button_intermediate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

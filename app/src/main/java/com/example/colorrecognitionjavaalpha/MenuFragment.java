@@ -31,6 +31,8 @@ public class MenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Button btnNotation = view.findViewById(R.id.button_notation);
+        btnNotation.setOnClickListener(this::onClick);
         Button btnBeginner = view.findViewById(R.id.button_beginner);
         btnBeginner.setOnClickListener(this::onClick);
         Button btnIntermediate = view.findViewById(R.id.button_intermediate);
@@ -42,6 +44,9 @@ public class MenuFragment extends Fragment {
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.button_notation:
+                Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.button_beginner:
                 BeginnerFragment beginnerFragment = new BeginnerFragment();
                 getParentFragmentManager()
