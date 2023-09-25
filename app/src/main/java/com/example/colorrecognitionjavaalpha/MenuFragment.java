@@ -37,8 +37,6 @@ public class MenuFragment extends Fragment {
         btnBeginner.setOnClickListener(this::onClick);
         Button btnIntermediate = view.findViewById(R.id.button_intermediate);
         btnIntermediate.setOnClickListener(this::onClick);
-        Button btnExpert = view.findViewById(R.id.button_expert);
-        btnExpert.setOnClickListener(this::onClick);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -56,9 +54,6 @@ public class MenuFragment extends Fragment {
                         .commit();
                 break;
             case R.id.button_intermediate:
-                Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.button_expert:
                 Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
                 break;
         }
