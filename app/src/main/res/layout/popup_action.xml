@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="36dp"
-        android:backgroundTint="?attr/colorSurface"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,24 +38,26 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/tv_popup_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Pengenalan 0/3"
+                android:textStyle="bold"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/tv_popup_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:text="Tahap mengenal rubik"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView11" />
+                app:layout_constraintTop_toBottomOf="@id/tv_popup_title" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_mulai"
@@ -71,7 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/tv_popup_desc"
                 app:layout_constraintVertical_bias="1.0" />
 
         </LinearLayout>

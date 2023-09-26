@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
@@ -17,7 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 public class MenuFragment extends Fragment {
 
@@ -44,33 +47,56 @@ public class MenuFragment extends Fragment {
         Button btnIntermediate = view.findViewById(R.id.button_intermediate);
         btnIntermediate.setOnClickListener(this::onClick);
 
-        CardView cardIntroduction = view.findViewById(R.id.card_introduction);
+        MaterialCardView cardIntroduction = view.findViewById(R.id.card_introduction);
         cardIntroduction.setOnClickListener(this::onClick);
+        MaterialCardView cardIBeginner = view.findViewById(R.id.card_beginner);
+        cardIBeginner.setOnClickListener(this::onClick);
+        MaterialCardView cardIntermediate = view.findViewById(R.id.card_intermediate);
+        cardIntermediate.setOnClickListener(this::onClick);
     }
 
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.card_introduction:
+                showPopup(view, 1);
+                break;
             case R.id.button_notation:
-                showPopup(view);
+                moveToIntroduction();
+                break;
+            case R.id.card_beginner:
+                showPopup(view, 2);
                 break;
             case R.id.button_beginner:
-                BeginnerFragment beginnerFragment = new BeginnerFragment();
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentContainerView, beginnerFragment, BeginnerFragment.class.getSimpleName())
-                        .addToBackStack(null)
-                        .commit();
+                moveToBeginner();
                 break;
+            case R.id.card_intermediate:
             case R.id.button_intermediate:
-                Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
+                showPopup(view, 3);
                 break;
         }
     }
 
+    private void moveToIntroduction() {
+        IntroductionFragment introductionFragment = new IntroductionFragment();
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, introductionFragment, IntroductionFragment.class.getSimpleName())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void moveToBeginner() {
+        BeginnerFragment beginnerFragment = new BeginnerFragment();
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, beginnerFragment, BeginnerFragment.class.getSimpleName())
+                .addToBackStack(null)
+                .commit();
+    }
+
     @SuppressLint("ResourceAsColor")
-    private void showPopup(View view) {
+    private void showPopup(View view, int level) {
 //        View popupView = View.inflate(getContext(), R.layout.popup_action, null);
 
         //Create a View object yourself through inflater
@@ -92,13 +118,48 @@ public class MenuFragment extends Fragment {
 
         //Set color etc
         ImageView imageViewPop = popupView.findViewById(R.id.iv_popup_icon);
-        imageViewPop.setImageResource(R.drawable.monster2);
-        Button buttonPopStart = popupView.findViewById(R.id.button_mulai);
-        buttonPopStart.setBackgroundColor(R.color.blue);
+        MaterialButton buttonPopStart = popupView.findViewById(R.id.button_mulai);
+        TextView textViewPopTitle = popupView.findViewById(R.id.tv_popup_title);
+        TextView textViewPopDesc = popupView.findViewById(R.id.tv_popup_desc);
+
+        int flag = 0;
+        String popTittle = "Pengenalan "+ flag +"/3";
+        String popDesc = "Tahap mengenal rubik";
+
+        if (level == 1) {
+            buttonPopStart.setBackgroundColor(R.color.green2);
+            imageViewPop.setImageResource(R.drawable.monster1);
+            popTittle = "Pengenalan "+ flag +"/4";
+            popDesc = "Tahap mengenal rubik";
+        }else if (level == 2) {
+            buttonPopStart.setBackgroundColor(R.color.blue);
+            imageViewPop.setImageResource(R.drawable.monster2);
+            popTittle = "Layer by layer "+ flag +"/6";
+            popDesc = "Algoritma dasar";
+        } else if (level == 3) {
+            buttonPopStart.setBackgroundColor(R.color.green3);
+            imageViewPop.setImageResource(R.drawable.monster3);
+            popTittle = "CFOP "+ flag +"/6";
+            popDesc = "COMING SOON";
+        }
+        textViewPopTitle.setText(popTittle);
+        textViewPopDesc.setText(popDesc);
+
         buttonPopStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
+                if (level == 1 ) {
+                    moveToIntroduction();
+                    popupWindow.dismiss();
+                }
+                else if (level == 2){
+                    moveToBeginner();
+                    popupWindow.dismiss();
+                }
+                else if (level == 3){
+                    Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
+                    popupWindow.dismiss();
+                }
             }
         });
 
@@ -106,7 +167,6 @@ public class MenuFragment extends Fragment {
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 //Close the window when clicked
                 popupWindow.dismiss();
                 return true;
