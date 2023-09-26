@@ -8,7 +8,7 @@
     tools:context=".MenuFragment">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -17,23 +17,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/iv_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:src="@drawable/baseline_info_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorOnBackground" />
+        app:tint="?attr/colorOnBackground"
+        android:contentDescription="about" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:text="Pilih Level"
         android:textColor="?attr/colorOnBackground"
-        android:textSize="36dp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,11 +46,12 @@
         android:layout_margin="12dp"
         android:elevation="3dp"
         android:src="@drawable/monster1"
-        app:layout_constraintBottom_toBottomOf="@+id/card_notation"
-        app:layout_constraintStart_toStartOf="@+id/card_notation" />
+        app:layout_constraintBottom_toBottomOf="@+id/card_introduction"
+        app:layout_constraintStart_toStartOf="@+id/card_introduction"
+        android:contentDescription="Pengenalan maskot" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_notation"
+        android:id="@+id/card_introduction"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginTop="24dp"
@@ -58,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_menu"
         app:strokeColor="#1DE9B6"
         app:strokeWidth="3dp">
 
@@ -69,7 +71,7 @@
             android:layout_gravity="top"
             android:layout_marginStart="170dp"
             android:layout_marginTop="8dp"
-            android:text="Notasi"
+            android:text="Pengenalan"
             android:textColor="?attr/colorOnBackground"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -114,7 +116,8 @@
         android:elevation="3dp"
         android:src="@drawable/monster2"
         app:layout_constraintBottom_toBottomOf="@+id/card_beginner"
-        app:layout_constraintStart_toStartOf="@+id/card_beginner" />
+        app:layout_constraintStart_toStartOf="@+id/card_beginner"
+        android:contentDescription="Layer by layer maskot" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_beginner"
@@ -126,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_notation"
+        app:layout_constraintTop_toBottomOf="@+id/card_introduction"
         app:strokeColor="#00B0FF"
         app:strokeWidth="2dp">
 
@@ -182,7 +185,8 @@
         android:elevation="3dp"
         android:src="@drawable/monster3"
         app:layout_constraintBottom_toBottomOf="@+id/card_intermediate"
-        app:layout_constraintStart_toStartOf="@+id/card_intermediate" />
+        app:layout_constraintStart_toStartOf="@+id/card_intermediate"
+        android:contentDescription="CFOP maskot" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_intermediate"
@@ -193,7 +197,7 @@
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_beginner"
-        app:strokeColor="#76FF03"
+        app:strokeColor="#C6FF00"
         app:strokeWidth="2dp"
         tools:layout_editor_absoluteX="24dp">
 
@@ -234,10 +238,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="8dp"
+            android:backgroundTint="@android:color/darker_gray"
             android:onClick="onClick"
             android:text="MULAI"
-            android:backgroundTint="@android:color/darker_gray"
-            app:cornerRadius="20dp"/>
+            android:textColor="#4E342E"
+            app:cornerRadius="20dp" />
 
     </com.google.android.material.card.MaterialCardView>
 
