@@ -7,7 +7,7 @@
     tools:context=".BeginnerFragment">
 
     <ImageView
-        android:id="@+id/iv_introduction_back"
+        android:id="@+id/iv_beginner_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
         android:contentDescription="Back button" />
 
     <TextView
-        android:id="@+id/tv_introduction_tittle"
+        android:id="@+id/tv_beginner_tittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -33,14 +33,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/scrollView_introduction"
+        android:id="@+id/scrollView_beginner"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_introduction_tittle">
+        app:layout_constraintTop_toBottomOf="@+id/tv_beginner_tittle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -68,7 +68,10 @@
                 android:onClick="onClick"
                 android:text="SUNFLOWER"
                 android:textColor="?attr/colorOnSurface"
+                android:paddingStart="70dp"
                 android:backgroundTint="?attr/colorSurface"
+                android:drawableEnd="@drawable/baseline_check_circle_24"
+                android:drawableTint="@color/green"
                 app:cornerRadius="10dp"
                 app:strokeColor="?attr/colorOnSurface"
                 app:strokeWidth="2dp"
@@ -94,8 +97,10 @@
                 android:layout_marginTop="40dp"
                 android:onClick="onClick"
                 android:text="CROSS"
+                android:paddingStart="70dp"
                 android:textColor="?attr/colorOnSurface"
                 android:backgroundTint="?attr/colorSurface"
+                android:drawableEnd="@drawable/baseline_check_circle_24"
                 app:cornerRadius="10dp"
                 app:strokeColor="?attr/colorOnSurface"
                 app:strokeWidth="2dp"
@@ -121,8 +126,10 @@
                 android:layout_marginTop="40dp"
                 android:onClick="onClick"
                 android:text="FIRST LAYER"
+                android:paddingStart="70dp"
                 android:textColor="?attr/colorOnSurface"
                 android:backgroundTint="?attr/colorSurface"
+                android:drawableEnd="@drawable/baseline_check_circle_24"
                 app:cornerRadius="10dp"
                 app:strokeColor="?attr/colorOnSurface"
                 app:strokeWidth="2dp"
@@ -148,8 +155,10 @@
                 android:layout_marginTop="40dp"
                 android:onClick="onClick"
                 android:text="SECOND LAYER"
+                android:paddingStart="70dp"
                 android:textColor="?attr/colorOnSurface"
                 android:backgroundTint="?attr/colorSurface"
+                android:drawableEnd="@drawable/baseline_check_circle_24"
                 app:cornerRadius="10dp"
                 app:strokeColor="?attr/colorOnSurface"
                 app:strokeWidth="2dp"
@@ -175,8 +184,10 @@
                 android:layout_marginTop="40dp"
                 android:onClick="onClick"
                 android:text="OLL"
+                android:paddingStart="70dp"
                 android:textColor="?attr/colorOnSurface"
                 android:backgroundTint="?attr/colorSurface"
+                android:drawableEnd="@drawable/baseline_check_circle_24"
                 app:cornerRadius="10dp"
                 app:strokeColor="?attr/colorOnSurface"
                 app:strokeWidth="2dp"
@@ -202,8 +213,10 @@
                 android:layout_marginTop="40dp"
                 android:onClick="onClick"
                 android:text="PLL"
+                android:paddingStart="70dp"
                 android:textColor="?attr/colorOnSurface"
                 android:backgroundTint="?attr/colorSurface"
+                android:drawableEnd="@drawable/baseline_check_circle_24"
                 app:cornerRadius="10dp"
                 app:strokeColor="?attr/colorOnSurface"
                 app:strokeWidth="2dp"

@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.material.card.MaterialCardView;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Deklarasi
         Button btnCamera = findViewById(R.id.button_camera);
-        Button btnContinue = findViewById(R.id.button_continues);
+        MaterialCardView btnContinue = findViewById(R.id.button_continues);
 
         //
         MenuFragment menuFragment = new MenuFragment();

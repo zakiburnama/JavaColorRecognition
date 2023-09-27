@@ -11,10 +11,12 @@
         android:id="@+id/tv_greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="Hi,"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_about"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/iv_about"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/iv_about"
@@ -103,6 +105,7 @@
             android:layout_margin="8dp"
             android:onClick="onClick"
             android:text="MULAI"
+            android:textColor="@color/white"
             android:backgroundTint="#F50057"
             app:cornerRadius="20dp" />
 
@@ -171,6 +174,7 @@
             android:layout_margin="8dp"
             android:onClick="onClick"
             android:text="MULAI"
+            android:textColor="@color/white"
             android:backgroundTint="#F50057"
             app:cornerRadius="20dp" />
 

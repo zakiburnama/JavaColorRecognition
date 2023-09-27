@@ -85,7 +85,7 @@ public class BeginnerFragment extends Fragment {
         btnOLL.setOnClickListener(this::onClick);
         btnPLL.setOnClickListener(this::onClick);
 
-        ImageView imageView = view.findViewById(R.id.iv_introduction_back);
+        ImageView imageView = view.findViewById(R.id.iv_beginner_back);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -78,6 +79,19 @@ public class IntroductionFragment extends Fragment {
         btnIntro1.setOnClickListener(this::onClick);
         btnIntro2.setOnClickListener(this::onClick);
         btnIntro3.setOnClickListener(this::onClick);
+
+        ImageView imageView = view.findViewById(R.id.iv_introduction_back);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MenuFragment menuFragment = new MenuFragment();
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainerView, menuFragment, MenuFragment.class.getSimpleName())
+                        .disallowAddToBackStack()
+                        .commit();
+            }
+        });
     }
 
     public void onClick(View view) {

@@ -567,9 +567,10 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
             case R.id.button_back:
 //                cube.showCube();
 //                cube.testTurning();
-                paint.setTextSize(24);
-                canvas.drawText("awdad", 10, 600, paint);
-                Toast.makeText(this, "WWADA", Toast.LENGTH_SHORT).show();
+//                paint.setTextSize(24);
+//                canvas.drawText("awdad", 10, 600, paint);
+//                Toast.makeText(this, "WWADA", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
     }

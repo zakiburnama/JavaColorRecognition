@@ -71,8 +71,10 @@ public class MenuFragment extends Fragment {
                 moveToBeginner();
                 break;
             case R.id.card_intermediate:
-            case R.id.button_intermediate:
                 showPopup(view, 3);
+                break;
+            case R.id.button_intermediate:
+                Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -116,20 +118,21 @@ public class MenuFragment extends Fragment {
         //Set the location of the window on the screen
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
+        //
+        int flag = 0;
+        String popTittle = "Pengenalan "+ flag +"/3";
+        String popDesc = "Tahap mengenal rubik";
+
         //Set color etc
         ImageView imageViewPop = popupView.findViewById(R.id.iv_popup_icon);
         MaterialButton buttonPopStart = popupView.findViewById(R.id.button_mulai);
         TextView textViewPopTitle = popupView.findViewById(R.id.tv_popup_title);
         TextView textViewPopDesc = popupView.findViewById(R.id.tv_popup_desc);
 
-        int flag = 0;
-        String popTittle = "Pengenalan "+ flag +"/3";
-        String popDesc = "Tahap mengenal rubik";
-
         if (level == 1) {
             buttonPopStart.setBackgroundColor(R.color.green2);
             imageViewPop.setImageResource(R.drawable.monster1);
-            popTittle = "Pengenalan "+ flag +"/4";
+            popTittle = "Pengenalan "+ flag +"/3";
             popDesc = "Tahap mengenal rubik";
         }else if (level == 2) {
             buttonPopStart.setBackgroundColor(R.color.blue);

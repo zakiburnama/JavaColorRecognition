@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="70dp"
-        android:text="Materi Beginner"
+        android:text="Materi Introduction"
         android:textColor="?attr/colorOnBackground"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -56,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorSurface"
                 android:drawableEnd="@drawable/baseline_check_circle_24"
+                android:drawableTint="@color/green"
                 android:padding="20dp"
                 android:onClick="onClick"
                 android:text="Posisi dan bagian rubik"
@@ -63,7 +64,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 app:cornerRadius="20dp"
-                app:strokeColor="?attr/colorOnSurface"
+                app:strokeColor="@color/green"
                 app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
