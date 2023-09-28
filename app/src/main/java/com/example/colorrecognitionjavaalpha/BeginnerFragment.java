@@ -89,12 +89,7 @@ public class BeginnerFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MenuFragment menuFragment = new MenuFragment();
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentContainerView, menuFragment, MenuFragment.class.getSimpleName())
-                        .disallowAddToBackStack()
-                        .commit();
+                getParentFragmentManager().popBackStack();
             }
         });
     }

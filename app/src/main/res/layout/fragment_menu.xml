@@ -195,13 +195,11 @@
         android:id="@+id/card_intermediate"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginBottom="12dp"
         app:cardCornerRadius="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_continues"
         app:layout_constraintTop_toBottomOf="@+id/card_beginner"
         app:strokeColor="#C6FF00"
-        app:strokeWidth="2dp"
-        tools:layout_editor_absoluteX="24dp">
+        app:strokeWidth="2dp">
 
         <TextView
             android:id="@+id/textView7"
@@ -247,5 +245,57 @@
             app:cornerRadius="20dp" />
 
     </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/button_continues"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/blue"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/card_intermediate">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="8dp"
+            android:text="LANJUTKAN"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="Layer by Layer 2/6"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button2"
+        android:backgroundTint="#FF9100"
+        android:drawableStart="@drawable/baseline_photo_camera_24"
+        android:drawablePadding="8dp"
+        android:paddingHorizontal="8dp"
+        android:text="CAMERA"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button_continues"
+        app:layout_constraintEnd_toEndOf="@+id/card_intermediate"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_continues" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

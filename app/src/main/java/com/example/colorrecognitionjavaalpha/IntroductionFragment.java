@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -84,17 +83,17 @@ public class IntroductionFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MenuFragment menuFragment = new MenuFragment();
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentContainerView, menuFragment, MenuFragment.class.getSimpleName())
-                        .disallowAddToBackStack()
-                        .commit();
+                getParentFragmentManager().popBackStack();
             }
         });
     }
 
     public void onClick(View view) {
-        Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
+        MateriFragment moveFragment = MateriFragment.newInstance("awd", "AWD");
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, moveFragment, MateriFragment.class.getSimpleName())
+                .addToBackStack(null)
+                .commit();
     }
 }

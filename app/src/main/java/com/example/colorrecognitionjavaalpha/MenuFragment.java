@@ -1,10 +1,12 @@
 package com.example.colorrecognitionjavaalpha;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
@@ -53,6 +55,22 @@ public class MenuFragment extends Fragment {
         cardIBeginner.setOnClickListener(this::onClick);
         MaterialCardView cardIntermediate = view.findViewById(R.id.card_intermediate);
         cardIntermediate.setOnClickListener(this::onClick);
+
+
+        AppCompatButton btnCamera = view.findViewById(R.id.button_camera);
+        MaterialCardView btnContinue = view.findViewById(R.id.button_continues);
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+        btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Not Avaiable Yet", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -119,7 +137,7 @@ public class MenuFragment extends Fragment {
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
         //
-        int flag = 0;
+        int flag = 1;
         String popTittle = "Pengenalan "+ flag +"/3";
         String popDesc = "Tahap mengenal rubik";
 
