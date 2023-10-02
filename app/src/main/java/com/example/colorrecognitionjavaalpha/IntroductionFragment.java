@@ -89,7 +89,25 @@ public class IntroductionFragment extends Fragment {
     }
 
     public void onClick(View view) {
-        MateriFragment moveFragment = MateriFragment.newInstance("awd", "AWD");
+        String param1 = null;
+        String param2 = null;
+
+        switch (view.getId()){
+            case R.id.button_introduction_1:
+                param1 = "Posisi dan Bagian Rubik";
+                param2 = "1";
+                break;
+            case R.id.button_introduction_2:
+                param1 = "Notasi Pada Rubik";
+                param2 = "2";
+                break;
+            case R.id.button_introduction_3:
+                param1 = "Notasi Lanjutan";
+                param2 = "3";
+                break;
+        }
+
+        MateriFragment moveFragment = MateriFragment.newInstance(param1, param2);
         getParentFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContainerView, moveFragment, MateriFragment.class.getSimpleName())

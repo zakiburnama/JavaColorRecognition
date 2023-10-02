@@ -1,16 +1,22 @@
 package com.example.colorrecognitionjavaalpha;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +33,9 @@ public class MateriFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView rvMateri;
+    private ArrayList<Materi> listMateri = new ArrayList<>();
 
     public MateriFragment() {
         // Required empty public constructor
@@ -63,6 +72,7 @@ public class MateriFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.i("TAG", "#### onCreateView");
         return inflater.inflate(R.layout.fragment_materi, container, false);
     }
 
@@ -73,6 +83,20 @@ public class MateriFragment extends Fragment {
         Log.i("TAG", "#### MateriFragment = "+mParam1);
         Log.i("TAG", "#### MateriFragment = "+mParam2);
 
+        rvMateri = view.findViewById(R.id.rv_materi);
+        rvMateri.setHasFixedSize(true);
+
+        listMateri.addAll(getListMateri());
+        showRecycler();
+
+
+//        ImageView imgContent = view.findViewById(R.id.iv_materi_content);
+//        TextView textTittle = view.findViewById(R.id.tv_materi_content_tittle);
+//        TextView textDesc = view.findViewById(R.id.tv_materi_content_desc);
+
+//        imgContent.setImageResource(dataPhoto.getResourceId(0, -1));
+//        textDesc.setText(introDesc[0]);
+
         ImageView btnClose = view.findViewById(R.id.iv_materi_back);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +106,34 @@ public class MateriFragment extends Fragment {
         });
     }
 
-    public void onClick(View view) {
+    public ArrayList<Materi> getListMateri() {
+        String[] introTittle = getResources().getStringArray(R.array.materi_pengenalan_tittle);
+        String[] introDesc = getResources().getStringArray(R.array.materi_pengenalan_desc);
+        TypedArray introPhoto = getResources().obtainTypedArray(R.array.photo_rubik);
+
+        ArrayList<Materi> list = new ArrayList<>();
+        for (int i = 0; i < introTittle.length; i++) {
+            Materi materi = new Materi();
+            materi.setTittle(introTittle[i]);
+            materi.setDescription(introDesc[i]);
+            materi.setPhoto(introPhoto.getResourceId(i, -1));
+            materi.setReaded(true);
+            list.add(materi);
+        }
+        return list;
+    }
+
+    private void showRecycler() {
+//        rvMateri.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rvMateri.setLayoutManager(new LinearLayoutManager(getContext()));
+        ListMateriAdapter listMateriAdapter = new ListMateriAdapter(listMateri);
+        rvMateri.setAdapter(listMateriAdapter);
+
+
+        listMateriAdapter.setOnItemClickCallback(this::showSelectedHero);
+    }
+
+    private void showSelectedHero(Materi materi) {
+        Toast.makeText(getContext(), "Kamu memilih " + materi.getTittle(), Toast.LENGTH_SHORT).show();
     }
 }
