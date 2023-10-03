@@ -5,14 +5,19 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -124,13 +129,83 @@ public class MateriFragment extends Fragment {
     }
 
     private void showRecycler() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvMateri.setLayoutManager(layoutManager);
 //        rvMateri.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rvMateri.setLayoutManager(new LinearLayoutManager(getContext()));
+//        rvMateri.setLayoutManager(new LinearLayoutManager(getContext()));
         ListMateriAdapter listMateriAdapter = new ListMateriAdapter(listMateri);
         rvMateri.setAdapter(listMateriAdapter);
-
+//        rvMateri.setPadding(150,0,150,0);
 
         listMateriAdapter.setOnItemClickCallback(this::showSelectedHero);
+
+        final LinearSnapHelper snapHelper = new LinearSnapHelper(){
+            @Override
+            public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
+                if (!(layoutManager instanceof RecyclerView.SmoothScroller.ScrollVectorProvider)) {
+                    return RecyclerView.NO_POSITION;
+                }
+
+                final View currentView = findSnapView(layoutManager);
+
+                if (currentView == null) {
+                    return RecyclerView.NO_POSITION;
+                }
+
+                LinearLayoutManager myLayoutManager = (LinearLayoutManager) layoutManager;
+
+                int position1 = myLayoutManager.findFirstVisibleItemPosition();
+                int position2 = myLayoutManager.findLastVisibleItemPosition();
+
+                int currentPosition = layoutManager.getPosition(currentView);
+
+                if (velocityX > 400) {
+                    currentPosition = position2;
+                } else if (velocityX < 400) {
+                    currentPosition = position1;
+                }
+
+                if (currentPosition == RecyclerView.NO_POSITION) {
+                    return RecyclerView.NO_POSITION;
+                }
+
+                return currentPosition;
+            }
+        };
+        snapHelper.attachToRecyclerView(rvMateri);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RecyclerView.ViewHolder viewHolder = rvMateri.findViewHolderForAdapterPosition(0);
+                CardView cardView = viewHolder.itemView.findViewById(R.id.lll_item_materi);
+                cardView.animate().scaleX(1).scaleY(1).setDuration(100).setInterpolator(new AccelerateInterpolator()).start();
+            }
+        }, 100);
+        rvMateri.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                View view = snapHelper.findSnapView(layoutManager);
+                int pos = layoutManager.getPosition(view);
+
+                RecyclerView.ViewHolder viewHolder = rvMateri.findViewHolderForAdapterPosition(pos);
+                CardView cardView = viewHolder.itemView.findViewById(R.id.lll_item_materi);
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    cardView.animate().setDuration(100).scaleX(1).scaleY(1).setInterpolator(new AccelerateInterpolator()).start();
+                } else {
+                    cardView.animate().setDuration(100).scaleX(0.75f).scaleY(0.75f).setInterpolator(new AccelerateInterpolator()).start();
+                }
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     private void showSelectedHero(Materi materi) {
