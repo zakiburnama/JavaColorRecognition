@@ -11,11 +11,11 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -1683098010
+    "memoizedHashCode": 1718890866
   },
   {
     "level_": 0,
-    "message_": "rebuilding JSON D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\.cxx\\RelWithDebInfo\\5s493m1i\\x86\\android_gradle_build.json due to:",
+    "message_": "JSON \u0027D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\.cxx\\RelWithDebInfo\\5s493m1i\\x86\\android_gradle_build.json\u0027 was up-to-date",
     "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
     "tag_": "release|x86",
     "diagnosticCode_": 0,
@@ -25,119 +25,7 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": 661276295
-  },
-  {
-    "level_": 0,
-    "message_": "- no fingerprint file, will remove stale configuration folder",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": -1419270409
-  },
-  {
-    "level_": 0,
-    "message_": "removing stale contents from \u0027D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\.cxx\\RelWithDebInfo\\5s493m1i\\x86\u0027",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": -1266002399
-  },
-  {
-    "level_": 0,
-    "message_": "created folder \u0027D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\.cxx\\RelWithDebInfo\\5s493m1i\\x86\u0027",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 709321621
-  },
-  {
-    "level_": 0,
-    "message_": "executing cmake @echo off\n\"C:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\cmake.exe\" ^\n  \"-HD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\libcxx_helper\" ^\n  \"-DCMAKE_SYSTEM_NAME\u003dAndroid\" ^\n  \"-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\" ^\n  \"-DCMAKE_SYSTEM_VERSION\u003d21\" ^\n  \"-DANDROID_PLATFORM\u003dandroid-21\" ^\n  \"-DANDROID_ABI\u003dx86\" ^\n  \"-DCMAKE_ANDROID_ARCH_ABI\u003dx86\" ^\n  \"-DANDROID_NDK\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_ANDROID_NDK\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_TOOLCHAIN_FILE\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\\\\build\\\\cmake\\\\android.toolchain.cmake\" ^\n  \"-DCMAKE_MAKE_PROGRAM\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\ninja.exe\" ^\n  \"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\5s493m1i\\\\obj\\\\x86\" ^\n  \"-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\5s493m1i\\\\obj\\\\x86\" ^\n  \"-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\" ^\n  \"-BD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\.cxx\\\\RelWithDebInfo\\\\5s493m1i\\\\x86\" ^\n  -GNinja ^\n  \"-DANDROID_STL\u003dc++_shared\"\n",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 357744750
-  },
-  {
-    "level_": 0,
-    "message_": "@echo off\n\"C:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\cmake.exe\" ^\n  \"-HD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\libcxx_helper\" ^\n  \"-DCMAKE_SYSTEM_NAME\u003dAndroid\" ^\n  \"-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\" ^\n  \"-DCMAKE_SYSTEM_VERSION\u003d21\" ^\n  \"-DANDROID_PLATFORM\u003dandroid-21\" ^\n  \"-DANDROID_ABI\u003dx86\" ^\n  \"-DCMAKE_ANDROID_ARCH_ABI\u003dx86\" ^\n  \"-DANDROID_NDK\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_ANDROID_NDK\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_TOOLCHAIN_FILE\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\\\\build\\\\cmake\\\\android.toolchain.cmake\" ^\n  \"-DCMAKE_MAKE_PROGRAM\u003dC:\\\\Users\\\\Acer\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\ninja.exe\" ^\n  \"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\5s493m1i\\\\obj\\\\x86\" ^\n  \"-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\5s493m1i\\\\obj\\\\x86\" ^\n  \"-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\" ^\n  \"-BD:\\\\Project_Coding\\\\Android_Studio\\\\ColorRecognitionJavaAlpha\\\\openCV\\\\.cxx\\\\RelWithDebInfo\\\\5s493m1i\\\\x86\" ^\n  -GNinja ^\n  \"-DANDROID_STL\u003dc++_shared\"\n",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 861328143
-  },
-  {
-    "level_": 0,
-    "message_": "Exiting generation of D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\.cxx\\RelWithDebInfo\\5s493m1i\\x86\\compile_commands.json.bin normally",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 956584523
-  },
-  {
-    "level_": 0,
-    "message_": "done executing cmake",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 465685367
-  },
-  {
-    "level_": 0,
-    "message_": "hard linked D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\.cxx\\RelWithDebInfo\\5s493m1i\\x86\\compile_commands.json to D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\.cxx\\tools\\release\\x86\\compile_commands.json",
-    "file_": "D:\\Project_Coding\\Android_Studio\\ColorRecognitionJavaAlpha\\openCV\\libcxx_helper\\CMakeLists.txt",
-    "tag_": "release|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": -525795668
+    "memoizedHashCode": -899933462
   },
   {
     "level_": 0,
@@ -151,6 +39,6 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -1891208845
+    "memoizedHashCode": 1510780031
   }
 ]
