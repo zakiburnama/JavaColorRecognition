@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import android.os.Handler;
 import android.util.Log;
@@ -21,7 +20,14 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +47,8 @@ public class MateriFragment extends Fragment {
 
     private RecyclerView rvMateri;
     private ArrayList<Materi> listMateri = new ArrayList<>();
+
+    private DatabaseReference databaseReference;
 
     public MateriFragment() {
         // Required empty public constructor
@@ -91,8 +99,11 @@ public class MateriFragment extends Fragment {
         rvMateri = view.findViewById(R.id.rv_materi);
         rvMateri.setHasFixedSize(true);
 
-        listMateri.addAll(getListMateri());
-        showRecycler();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("data").child("pengenalan").child("pengenalan1");
+        getAllData();
+
+//        listMateri.addAll(getListMateri());
+//        showRecycler();
 
 
 //        ImageView imgContent = view.findViewById(R.id.iv_materi_content);
@@ -111,15 +122,69 @@ public class MateriFragment extends Fragment {
         });
     }
 
+    private void getAllData() {
+        ArrayList<Materi> listA = new ArrayList<>();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Log.i("TAG", "#### snapshot: "+ snapshot);
+//                    for (int i = 0; i < snapshot.getChildrenCount(); i++) {
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                        Materi materi = new Materi();
+                        materi.setTitle(dataSnapshot.child("title").getValue(String.class));
+                        materi.setDescription(dataSnapshot.child("description").getValue(String.class));
+                        materi.setPhoto(dataSnapshot.child("photo").getValue(Integer.class));
+                        materi.setReaded(dataSnapshot.child("isReaded").getValue(Boolean.class));
+                        listA.add(materi);
+//                        Log.i("TAG", "#### dataSnapshot: "+ dataSnapshot);
+//                        Log.i("TAG", "#### dataSnapshotchild: "+ dataSnapshot.child("title"));
+//                        Log.i("TAG", "#### dataSnapshotchildgetValue: "+ dataSnapshot.child("title").getValue());
+//                        Log.i("TAG", "#### dataSnapshotgetValue: "+ dataSnapshot.getValue());
+//                        String title = dataSnapshot.child("title").getValue().toString();
+//                        Log.i("TAG", "#### title: "+ title);
+//                        String title2 = (String) dataSnapshot.child("title").getValue();
+//                        Log.i("TAG", "#### title2: "+ title2);
+//                        String title3 = dataSnapshot.child("title").getValue(String.class);
+//                        Log.i("TAG", "#### title3: "+ title3);
+//                        listA.add(dataSnapshot.getValue(Materi.class));
+                    }
+                    setData(listA);
+//                    Log.i("TAG", "#### list: "+ listA);
+//                    Log.i("TAG", "#### list: "+ listA.indexOf(0));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("TAG", "loadPost:onCancelled", error.toException());
+                Log.w("TAG", "loadPost:onCancelled"+ error.toException());
+            }
+        });
+    }
+
+    private void setData(ArrayList<Materi> listA) {
+        listMateri.addAll(listA);
+        showRecycler();
+    }
+
     public ArrayList<Materi> getListMateri() {
         String[] introTittle = getResources().getStringArray(R.array.materi_pengenalan_tittle);
         String[] introDesc = getResources().getStringArray(R.array.materi_pengenalan_desc);
         TypedArray introPhoto = getResources().obtainTypedArray(R.array.photo_rubik);
 
+        Log.i("TAG", "#### introPhoto: "+ introPhoto);
+        Log.i("TAG", "#### introPhoto: "+ introPhoto.getResourceId(0, -1));
+        int a = 1;
+        Log.i("TAG", "#### introPhoto: "+ introPhoto.getResourceId(a, -1));
+
+
         ArrayList<Materi> list = new ArrayList<>();
         for (int i = 0; i < introTittle.length; i++) {
             Materi materi = new Materi();
-            materi.setTittle(introTittle[i]);
+            materi.setTitle(introTittle[i]);
             materi.setDescription(introDesc[i]);
             materi.setPhoto(introPhoto.getResourceId(i, -1));
             materi.setReaded(true);
@@ -209,6 +274,6 @@ public class MateriFragment extends Fragment {
     }
 
     private void showSelectedHero(Materi materi) {
-        Toast.makeText(getContext(), "Kamu memilih " + materi.getTittle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Kamu memilih " + materi.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

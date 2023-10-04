@@ -1,12 +1,10 @@
 package com.example.colorrecognitionjavaalpha;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +35,7 @@ public class ListMateriAdapter extends RecyclerView.Adapter<ListMateriAdapter.Li
     public void onBindViewHolder(@NonNull ListMateriAdapter.ListViewHolder holder, int position) {
         Materi materi = listMateri.get(position);
         holder.imgPhoto.setImageResource(materi.getPhoto());
-        holder.tvName.setText(materi.getTittle());
+        holder.tvName.setText(materi.getTitle());
         holder.tvDescription.setText(materi.getDescription());
         holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listMateri.get(holder.getAdapterPosition())));
 

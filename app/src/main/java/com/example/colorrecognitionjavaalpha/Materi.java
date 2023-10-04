@@ -7,7 +7,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Materi implements Parcelable {
-    private String tittle;
+    private String title;
     private String description;
     private Integer photo;
     private Boolean isReaded;
@@ -16,12 +16,12 @@ public class Materi implements Parcelable {
 
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -55,7 +55,7 @@ public class Materi implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(tittle);
+        dest.writeString(title);
         dest.writeString(description);
         if (photo == null) {
             dest.writeByte((byte) 0);
@@ -69,7 +69,7 @@ public class Materi implements Parcelable {
     }
 
     protected Materi(Parcel in) {
-        tittle = in.readString();
+        title = in.readString();
         description = in.readString();
         if (in.readByte() == 0) {
             photo = null;
