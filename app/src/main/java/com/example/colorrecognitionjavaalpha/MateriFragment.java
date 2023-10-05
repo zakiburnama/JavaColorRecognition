@@ -27,7 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,9 +43,12 @@ public class MateriFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Integer pos = 0;
+    private Integer listSize;
+    private Boolean play = false;
 
     private RecyclerView rvMateri;
-    private ArrayList<Materi> listMateri = new ArrayList<>();
+//    private ArrayList<Materi> listMateri = new ArrayList<>();
 
     private DatabaseReference databaseReference;
 
@@ -102,57 +104,39 @@ public class MateriFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("data").child("pengenalan").child("pengenalan1");
         getAllData();
 
-//        listMateri.addAll(getListMateri());
-//        showRecycler();
-
-
-//        ImageView imgContent = view.findViewById(R.id.iv_materi_content);
-//        TextView textTittle = view.findViewById(R.id.tv_materi_content_tittle);
-//        TextView textDesc = view.findViewById(R.id.tv_materi_content_desc);
-
-//        imgContent.setImageResource(dataPhoto.getResourceId(0, -1));
-//        textDesc.setText(introDesc[0]);
-
+        ImageView btnPrev = view.findViewById(R.id.iv_materi_previous);
+        btnPrev.setOnClickListener(this::onClick);
+        ImageView btnPause = view.findViewById(R.id.iv_materi_pause);
+        btnPause.setOnClickListener(this::onClick);
+        ImageView btnNext = view.findViewById(R.id.iv_materi_next);
+        btnNext.setOnClickListener(this::onClick);
         ImageView btnClose = view.findViewById(R.id.iv_materi_back);
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getParentFragmentManager().popBackStack();
-            }
-        });
+        btnClose.setOnClickListener(this::onClick);
+//        btnClose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getParentFragmentManager().popBackStack();
+//            }
+//        });
     }
 
     private void getAllData() {
-        ArrayList<Materi> listA = new ArrayList<>();
-
+        ArrayList<Materi> list = new ArrayList<>();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Log.i("TAG", "#### snapshot: "+ snapshot);
-//                    for (int i = 0; i < snapshot.getChildrenCount(); i++) {
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                         Materi materi = new Materi();
                         materi.setTitle(dataSnapshot.child("title").getValue(String.class));
                         materi.setDescription(dataSnapshot.child("description").getValue(String.class));
                         materi.setPhoto(dataSnapshot.child("photo").getValue(Integer.class));
                         materi.setReaded(dataSnapshot.child("isReaded").getValue(Boolean.class));
-                        listA.add(materi);
-//                        Log.i("TAG", "#### dataSnapshot: "+ dataSnapshot);
-//                        Log.i("TAG", "#### dataSnapshotchild: "+ dataSnapshot.child("title"));
-//                        Log.i("TAG", "#### dataSnapshotchildgetValue: "+ dataSnapshot.child("title").getValue());
-//                        Log.i("TAG", "#### dataSnapshotgetValue: "+ dataSnapshot.getValue());
-//                        String title = dataSnapshot.child("title").getValue().toString();
-//                        Log.i("TAG", "#### title: "+ title);
-//                        String title2 = (String) dataSnapshot.child("title").getValue();
-//                        Log.i("TAG", "#### title2: "+ title2);
-//                        String title3 = dataSnapshot.child("title").getValue(String.class);
-//                        Log.i("TAG", "#### title3: "+ title3);
-//                        listA.add(dataSnapshot.getValue(Materi.class));
+                        list.add(materi);
                     }
-                    setData(listA);
-//                    Log.i("TAG", "#### list: "+ listA);
-//                    Log.i("TAG", "#### list: "+ listA.indexOf(0));
+                    showRecycler(list);
+                    listSize = list.size() - 1;
                 }
 
             }
@@ -160,40 +144,30 @@ public class MateriFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("TAG", "loadPost:onCancelled", error.toException());
-                Log.w("TAG", "loadPost:onCancelled"+ error.toException());
             }
         });
     }
 
-    private void setData(ArrayList<Materi> listA) {
-        listMateri.addAll(listA);
-        showRecycler();
-    }
-
+    //TODO delete soon
     public ArrayList<Materi> getListMateri() {
         String[] introTittle = getResources().getStringArray(R.array.materi_pengenalan_tittle);
         String[] introDesc = getResources().getStringArray(R.array.materi_pengenalan_desc);
         TypedArray introPhoto = getResources().obtainTypedArray(R.array.photo_rubik);
 
-        Log.i("TAG", "#### introPhoto: "+ introPhoto);
-        Log.i("TAG", "#### introPhoto: "+ introPhoto.getResourceId(0, -1));
-        int a = 1;
-        Log.i("TAG", "#### introPhoto: "+ introPhoto.getResourceId(a, -1));
-
-
         ArrayList<Materi> list = new ArrayList<>();
         for (int i = 0; i < introTittle.length; i++) {
-            Materi materi = new Materi();
-            materi.setTitle(introTittle[i]);
-            materi.setDescription(introDesc[i]);
-            materi.setPhoto(introPhoto.getResourceId(i, -1));
-            materi.setReaded(true);
-            list.add(materi);
+            Log.i("TAG", "#### introPhoto: "+ introPhoto.getResourceId(i, -1));
+//            Materi materi = new Materi();
+//            materi.setTitle(introTittle[i]);
+//            materi.setDescription(introDesc[i]);
+//            materi.setPhoto(introPhoto.getResourceId(i, -1));
+//            materi.setReaded(true);
+//            list.add(materi);
         }
         return list;
     }
 
-    private void showRecycler() {
+    private void showRecycler(ArrayList<Materi> listMateri) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvMateri.setLayoutManager(layoutManager);
 //        rvMateri.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -202,7 +176,7 @@ public class MateriFragment extends Fragment {
         rvMateri.setAdapter(listMateriAdapter);
 //        rvMateri.setPadding(150,0,150,0);
 
-        listMateriAdapter.setOnItemClickCallback(this::showSelectedHero);
+        listMateriAdapter.setOnItemClickCallback(this::showSelectedItem);
 
         final LinearSnapHelper snapHelper = new LinearSnapHelper(){
             @Override
@@ -242,21 +216,26 @@ public class MateriFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                RecyclerView.ViewHolder viewHolder = rvMateri.findViewHolderForAdapterPosition(0);
-                CardView cardView = viewHolder.itemView.findViewById(R.id.lll_item_materi);
+                RecyclerView.ViewHolder viewHolder = rvMateri.findViewHolderForAdapterPosition(pos);
+                CardView cardView = viewHolder.itemView.findViewById(R.id.item_materi);
                 cardView.animate().scaleX(1).scaleY(1).setDuration(100).setInterpolator(new AccelerateInterpolator()).start();
             }
         }, 100);
+
+//        play = true; // For auto scroll
+//        setPlay(); // paly
+
         rvMateri.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 View view = snapHelper.findSnapView(layoutManager);
-                int pos = layoutManager.getPosition(view);
+                pos = layoutManager.getPosition(view);
+                Log.i("TAG", "#### position: "+ pos);
 
                 RecyclerView.ViewHolder viewHolder = rvMateri.findViewHolderForAdapterPosition(pos);
-                CardView cardView = viewHolder.itemView.findViewById(R.id.lll_item_materi);
+                CardView cardView = viewHolder.itemView.findViewById(R.id.item_materi);
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     cardView.animate().setDuration(100).scaleX(1).scaleY(1).setInterpolator(new AccelerateInterpolator()).start();
@@ -273,7 +252,65 @@ public class MateriFragment extends Fragment {
         });
     }
 
-    private void showSelectedHero(Materi materi) {
+    public void setPlay(){
+        if (play) {
+            Log.i("TAG", "#### PLAY: ");
+            final Handler handler = new Handler();
+//            int count = 0;
+            final Runnable runnable = new Runnable() {
+                public void run() {
+                    // need to do tasks on the UI thread
+//                    Log.d(TAG, "Run test count: " + count);
+                    if (pos < listSize) {
+                        pos++;
+                        rvMateri.smoothScrollToPosition(pos);
+                        handler.postDelayed(this, 5000);
+                    }
+                }
+            };
+            // trigger first time
+            handler.post(runnable);
+
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    pos++;
+//                    rvMateri.smoothScrollToPosition(pos);
+//                }
+//            }, 10000);
+        } else {
+            Log.i("TAG", "#### ELSE: ");
+
+        }
+    }
+
+    private void showSelectedItem(Materi materi) {
         Toast.makeText(getContext(), "Kamu memilih " + materi.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_materi_back:
+                getParentFragmentManager().popBackStack();
+                break;
+            case R.id.iv_materi_previous:
+                if (pos > 0){
+                    pos--;
+                    rvMateri.smoothScrollToPosition(pos);
+                } else {
+                    Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.iv_materi_pause:
+                break;
+            case R.id.iv_materi_next:
+                if (pos < listSize){
+                    pos++;
+                    rvMateri.smoothScrollToPosition(pos);
+                } else {
+                    Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 }
