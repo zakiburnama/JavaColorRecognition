@@ -19,7 +19,7 @@
         android:theme="@style/Theme.ColorRecognitionJavaAlpha"
         tools:targetApi="31">
         <activity
-            android:name=".SolusiActivity"
+            android:name=".SolutionActivity"
             android:exported="false" />
         <activity
             android:name=".IntroActivity"

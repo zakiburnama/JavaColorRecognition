@@ -2,11 +2,19 @@ package com.example.colorrecognitionjavaalpha;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +31,10 @@ public class SolutionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String[] move;
+    private ArrayList<String> listMove = new ArrayList<>();
+    private RecyclerView rvSolution;
+
 
     public SolutionFragment() {
         // Required empty public constructor
@@ -52,6 +64,10 @@ public class SolutionFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            move = mParam2.split(" ");
+            listMove.addAll(Arrays.asList(move));
+            Log.i("TAG", "#### listMove00 "+ listMove);
         }
     }
 
@@ -60,5 +76,24 @@ public class SolutionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_solution, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        rvSolution = view.findViewById(R.id.rv_solusi);
+        rvSolution.setHasFixedSize(true);
+        showRecyclerSolution();
+
+    }
+
+    private void showRecyclerSolution() {
+        Log.i("TAG", "#### listMove2 "+ listMove);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvSolution.setLayoutManager(layoutManager);
+//        rvSolution.setLayoutManager(new LinearLayoutManager(getContext()));
+        ListSolutionAdapter listSolutionAdapter = new ListSolutionAdapter(listMove);
+        rvSolution.setAdapter(listSolutionAdapter);
     }
 }

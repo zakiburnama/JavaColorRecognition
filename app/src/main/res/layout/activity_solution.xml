@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SolusiActivity">
+    tools:context=".SolutionActivity">
 
     <ImageView
         android:id="@+id/iv_solusi_back"
@@ -13,6 +13,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="Back button"
+        android:onClick="onClick"
         android:minHeight="48dp"
         android:src="@drawable/baseline_close_24"
         app:layout_constraintEnd_toEndOf="parent"
