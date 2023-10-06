@@ -112,12 +112,6 @@ public class MateriFragment extends Fragment {
         btnNext.setOnClickListener(this::onClick);
         ImageView btnClose = view.findViewById(R.id.iv_materi_back);
         btnClose.setOnClickListener(this::onClick);
-//        btnClose.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getParentFragmentManager().popBackStack();
-//            }
-//        });
     }
 
     private void getAllData() {

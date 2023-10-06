@@ -1,6 +1,7 @@
 package com.example.colorrecognitionjavaalpha;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -19,7 +20,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -561,8 +561,12 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
                 cube.setAllColors(warnaSisiRubik);
 
+                Intent intent = new Intent(this, SolutionActivity.class);
+                intent.putExtra("sunflower", sunflower);
+                startActivity(intent);
 
-                canvas.drawText("awdad", 10, 600, paint);
+
+//                canvas.drawText("awdad", 10, 600, paint);
 
                 break;
             case R.id.button_back:

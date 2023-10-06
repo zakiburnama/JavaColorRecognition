@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ListMateriAdapter extends RecyclerView.Adapter<ListMateriAdapter.ListViewHolder> {
-    private ArrayList<Materi> listMateri;
+    private final ArrayList<Materi> listMateri;
     private OnItemClickCallback onItemClickCallback;
 
 
