@@ -22,10 +22,6 @@ public class SolutionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String sunflower = intent.getStringExtra("sunflower");
-//        String[] splitFlower = sunflower.split(" ");
-        Log.i("TAG", "#### sunflowerSolution : " + sunflower);
-
-
 
         SolutionFragment solutionFragment = SolutionFragment.newInstance("sunflower", sunflower);
         getSupportFragmentManager()
@@ -34,9 +30,8 @@ public class SolutionActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
 
-
         TextView tvTittle = findViewById(R.id.tv_solusi_tittle);
-        tvTittle.setText(sunflower);
+        tvTittle.setText("sunflower");
         ImageView btnClose = findViewById(R.id.iv_solusi_back);
         btnClose.setOnClickListener(this::onClick);
     }

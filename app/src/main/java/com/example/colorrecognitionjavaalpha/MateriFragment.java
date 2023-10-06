@@ -142,30 +142,9 @@ public class MateriFragment extends Fragment {
         });
     }
 
-    //TODO delete soon
-    public ArrayList<Materi> getListMateri() {
-        String[] introTittle = getResources().getStringArray(R.array.materi_pengenalan_tittle);
-        String[] introDesc = getResources().getStringArray(R.array.materi_pengenalan_desc);
-        TypedArray introPhoto = getResources().obtainTypedArray(R.array.photo_rubik);
-
-        ArrayList<Materi> list = new ArrayList<>();
-        for (int i = 0; i < introTittle.length; i++) {
-            Log.i("TAG", "#### introPhoto: "+ introPhoto.getResourceId(i, -1));
-//            Materi materi = new Materi();
-//            materi.setTitle(introTittle[i]);
-//            materi.setDescription(introDesc[i]);
-//            materi.setPhoto(introPhoto.getResourceId(i, -1));
-//            materi.setReaded(true);
-//            list.add(materi);
-        }
-        return list;
-    }
-
     private void showRecycler(ArrayList<Materi> listMateri) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvMateri.setLayoutManager(layoutManager);
-//        rvMateri.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-//        rvMateri.setLayoutManager(new LinearLayoutManager(getContext()));
         ListMateriAdapter listMateriAdapter = new ListMateriAdapter(listMateri);
         rvMateri.setAdapter(listMateriAdapter);
 //        rvMateri.setPadding(150,0,150,0);
