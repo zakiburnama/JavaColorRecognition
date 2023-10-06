@@ -532,6 +532,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 putWarna();
                 break;
             case R.id.button_next:
+                //TODO make intent to solution activity and send all data below
                 cube.setAllColors(warnaSisiRubik);
 
                 sunflower = cube.makeSunflower();
