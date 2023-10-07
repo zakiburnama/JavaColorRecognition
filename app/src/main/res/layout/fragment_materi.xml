@@ -35,7 +35,7 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progress="2"
+        android:progress="0"
         android:max="10"
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                 android:onClick="onClick"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                android:src="@drawable/baseline_pause_24" />
+                android:src="@drawable/baseline_play_arrow_24" />
 
             <ImageView
                 android:id="@+id/iv_materi_next"

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -44,12 +45,11 @@ public class MateriFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Integer pos = 0;
-    private Integer listSize;
+    private Integer listSize, progress = 0;
     private Boolean play = false;
-
+    private ProgressBar progressBar;
     private RecyclerView rvMateri;
-//    private ArrayList<Materi> listMateri = new ArrayList<>();
-
+    private ImageView btnPrev, btnPause, btnNext;
     private DatabaseReference databaseReference;
 
     public MateriFragment() {
@@ -104,11 +104,14 @@ public class MateriFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("data").child("pengenalan").child("pengenalan1");
         getAllData();
 
-        ImageView btnPrev = view.findViewById(R.id.iv_materi_previous);
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setProgress(progress);
+
+        btnPrev = view.findViewById(R.id.iv_materi_previous);
         btnPrev.setOnClickListener(this::onClick);
-        ImageView btnPause = view.findViewById(R.id.iv_materi_pause);
+        btnPause = view.findViewById(R.id.iv_materi_pause);
         btnPause.setOnClickListener(this::onClick);
-        ImageView btnNext = view.findViewById(R.id.iv_materi_next);
+        btnNext = view.findViewById(R.id.iv_materi_next);
         btnNext.setOnClickListener(this::onClick);
         ImageView btnClose = view.findViewById(R.id.iv_materi_back);
         btnClose.setOnClickListener(this::onClick);
@@ -131,6 +134,7 @@ public class MateriFragment extends Fragment {
                     }
                     showRecycler(list);
                     listSize = list.size() - 1;
+                    progressBar.setMax(listSize);
                 }
 
             }
@@ -207,6 +211,11 @@ public class MateriFragment extends Fragment {
                 pos = layoutManager.getPosition(view);
                 Log.i("TAG", "#### position: "+ pos);
 
+                if (pos > progress)
+                    progress = pos;
+
+                progressBar.setProgress(progress);
+
                 RecyclerView.ViewHolder viewHolder = rvMateri.findViewHolderForAdapterPosition(pos);
                 CardView cardView = viewHolder.itemView.findViewById(R.id.item_materi);
 
@@ -226,22 +235,23 @@ public class MateriFragment extends Fragment {
     }
 
     public void setPlay(){
-        if (play) {
+//        if (play) {
             Log.i("TAG", "#### PLAY: ");
             final Handler handler = new Handler();
-//            int count = 0;
             final Runnable runnable = new Runnable() {
                 public void run() {
-                    // need to do tasks on the UI thread
-//                    Log.d(TAG, "Run test count: " + count);
                     if (pos < listSize) {
                         pos++;
+                        Log.i("TAG", "#### pos setAuto if " + pos);
                         rvMateri.smoothScrollToPosition(pos);
-                        handler.postDelayed(this, 5000);
+                        handler.postDelayed(this, 2000);
+                    }else {
+                        Log.i("TAG", "#### pos setAuto else " + pos);
+//                        btnPause.setImageResource(R.drawable.baseline_play_arrow_24);
+                        Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
                     }
                 }
             };
-            // trigger first time
             handler.post(runnable);
 
 //            new Handler().postDelayed(new Runnable() {
@@ -251,10 +261,10 @@ public class MateriFragment extends Fragment {
 //                    rvMateri.smoothScrollToPosition(pos);
 //                }
 //            }, 10000);
-        } else {
-            Log.i("TAG", "#### ELSE: ");
-
-        }
+//        } else {
+//            Log.i("TAG", "#### ELSE: ");
+//
+//        }
     }
 
     private void showSelectedItem(Materi materi) {
@@ -275,6 +285,8 @@ public class MateriFragment extends Fragment {
                 }
                 break;
             case R.id.iv_materi_pause:
+                btnPause.setImageResource(R.drawable.baseline_pause_24);
+                setPlay();
                 break;
             case R.id.iv_materi_next:
                 if (pos < listSize){
