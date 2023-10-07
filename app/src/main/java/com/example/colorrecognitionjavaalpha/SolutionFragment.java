@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,11 +39,12 @@ public class SolutionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private String[] move;
     private Integer pos = 0;
-    private ArrayList<String> listMove = new ArrayList<>();
+    private final ArrayList<String> listMove = new ArrayList<>();
+    private final ArrayList<Integer> resID = new ArrayList<>();
     private Integer listSize;
     private RecyclerView rvSolution, rvMove;
+    private ImageView btnPrev, btnPause, btnNext;
 
 
     public SolutionFragment() {
@@ -74,9 +76,25 @@ public class SolutionFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
-            move = mParam2.split(" ");
+            String[] move = mParam2.split(" ");
             listMove.addAll(Arrays.asList(move));
-            listSize = listMove.size();
+            listSize = listMove.size() - 1;
+
+            for (String m : listMove) {
+                String[] mm = m.split("");
+                String resIDstr;
+                if (mm.length > 1) {
+                    if (Objects.equals(mm[1], "'")) {
+                        resIDstr = mm[0].toLowerCase()+"i";
+                    } else {
+                        resIDstr = mm[0].toLowerCase();
+                    }
+                } else {
+                    resIDstr = m.toLowerCase();
+                }
+                resID.add(getResources().getIdentifier(resIDstr, "drawable", getContext().getPackageName()));
+            }
+
         }
     }
 
@@ -91,11 +109,11 @@ public class SolutionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageView btnPrev = view.findViewById(R.id.iv_solusi_previous);
+        btnPrev = view.findViewById(R.id.iv_solusi_previous);
         btnPrev.setOnClickListener(this::onClick);
-        ImageView btnPause = view.findViewById(R.id.iv_solusi_pause);
+        btnPause = view.findViewById(R.id.iv_solusi_pause);
         btnPause.setOnClickListener(this::onClick);
-        ImageView btnNext = view.findViewById(R.id.iv_solusi_next);
+        btnNext = view.findViewById(R.id.iv_solusi_next);
         btnNext.setOnClickListener(this::onClick);
 
         rvSolution = view.findViewById(R.id.rv_solusi);
@@ -118,7 +136,7 @@ public class SolutionFragment extends Fragment {
     private void showRecyclerMove() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvMove.setLayoutManager(layoutManager);
-        ListMoveAdapter listMoveAdapter = new ListMoveAdapter(listMove);
+        ListMoveAdapter listMoveAdapter = new ListMoveAdapter(listMove, resID);
         rvMove.setAdapter(listMoveAdapter);
 
         LinearSnapHelper linearSnapHelper = new LinearSnapHelper(){
@@ -186,25 +204,61 @@ public class SolutionFragment extends Fragment {
             case R.id.iv_solusi_previous:
                 if (pos > 0){
                     pos--;
+                    Log.i("TAG", "#### pos prev if " + pos);
                     rvSolution.smoothScrollToPosition(pos);
                     rvMove.smoothScrollToPosition(pos);
                 } else {
+                    Log.i("TAG", "#### pos prev else " + pos);
                     Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.iv_solusi_pause:
-                Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
+                Log.i("TAG", "#### pos pause " + pos);
+                if (pos < listSize){
+                    btnPause.setImageResource(R.drawable.baseline_pause_24);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            setAuto();
+                        }
+                    }, 2000);
+                } else {
+                    Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.iv_solusi_next:
                 if (pos < listSize){
                     pos++;
+                    Log.i("TAG", "#### pos next if " + pos);
                     rvSolution.smoothScrollToPosition(pos);
                     rvMove.smoothScrollToPosition(pos);
                 } else {
+                    Log.i("TAG", "#### pos next else " + pos);
                     Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
 
+    }
+
+    private void setAuto() {
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (pos < listSize){
+                    pos++;
+                    Log.i("TAG", "#### pos setAuto if " + pos);
+                    rvSolution.smoothScrollToPosition(pos);
+                    rvMove.smoothScrollToPosition(pos);
+                    handler.postDelayed(this, 2000);
+                } else {
+                    Log.i("TAG", "#### pos setAuto else " + pos);
+                    btnPause.setImageResource(R.drawable.baseline_play_arrow_24);
+                    Toast.makeText(getContext(), "HABIS", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        handler.post(runnable);
     }
 }
