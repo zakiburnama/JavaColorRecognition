@@ -13,8 +13,10 @@ import java.util.ArrayList;
 
 public class ListMoveAdapter extends RecyclerView.Adapter<ListMoveAdapter.ListViewHolder> {
     private final ArrayList<String> list;
-    public ListMoveAdapter(ArrayList<String> listMove) {
+    private final ArrayList<Integer> listResID;
+    public ListMoveAdapter(ArrayList<String> listMove, ArrayList<Integer> resID) {
         this.list = listMove;
+        this.listResID = resID;
     }
 
     @NonNull
@@ -26,7 +28,25 @@ public class ListMoveAdapter extends RecyclerView.Adapter<ListMoveAdapter.ListVi
 
     @Override
     public void onBindViewHolder(@NonNull ListMoveAdapter.ListViewHolder holder, int position) {
-        holder.tvSolution.setText(list.get(position));
+        String move = list.get(position);
+//        String[] moves = move.split("");
+        holder.tvSolution.setText(move);
+        holder.ivSolution.setImageResource(listResID.get(position));
+
+//        if (moves.length > 1) {
+//            if (moves[1] == "'") {
+//                // Do noramal move
+//                Log.i("TAG", "#### moves[1] ' : " + moves[1]);
+//            } else {
+//                // do x = moves[0]
+//                Log.i("TAG", "#### moves[0] 2 : " + moves[0]);
+//                Log.i("TAG", "#### moves[1] 2 : " + moves[1]);
+//            }
+//        } else {
+//            // Do normal move
+//            Log.i("TAG", "#### moves : " + move);
+//        }
+
     }
 
     @Override
