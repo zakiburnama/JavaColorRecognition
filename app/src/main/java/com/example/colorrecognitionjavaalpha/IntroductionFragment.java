@@ -74,10 +74,12 @@ public class IntroductionFragment extends Fragment {
         MaterialButton btnIntro1 = view.findViewById(R.id.button_introduction_1);
         MaterialButton btnIntro2 = view.findViewById(R.id.button_introduction_2);
         MaterialButton btnIntro3 = view.findViewById(R.id.button_introduction_3);
+        MaterialButton btnIntro4 = view.findViewById(R.id.button_introduction_4);
 
         btnIntro1.setOnClickListener(this::onClick);
         btnIntro2.setOnClickListener(this::onClick);
         btnIntro3.setOnClickListener(this::onClick);
+        btnIntro4.setOnClickListener(this::onClick);
 
         ImageView imageView = view.findViewById(R.id.iv_introduction_back);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +96,7 @@ public class IntroductionFragment extends Fragment {
 
         switch (view.getId()){
             case R.id.button_introduction_1:
-                param1 = "Posisi dan Bagian Rubik";
+                param1 = "Bagian Rubik";
                 param2 = "1";
                 break;
             case R.id.button_introduction_2:
@@ -104,6 +106,10 @@ public class IntroductionFragment extends Fragment {
             case R.id.button_introduction_3:
                 param1 = "Notasi Lanjutan";
                 param2 = "3";
+                break;
+            case R.id.button_introduction_4:
+                param1 = "Rotasi";
+                param2 = "4";
                 break;
         }
 

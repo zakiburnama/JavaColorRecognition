@@ -115,6 +115,10 @@ public class MateriFragment extends Fragment {
                 databaseReference = FirebaseDatabase.getInstance().getReference()
                         .child("data").child("pengenalan").child("pengenalan3");
                 break;
+            case "4":
+                databaseReference = FirebaseDatabase.getInstance().getReference()
+                        .child("data").child("pengenalan").child("pengenalan4");
+                break;
             default:
                 databaseReference = FirebaseDatabase.getInstance().getReference()
                         .child("data").child("pengenalan").child("pengenalan1");
