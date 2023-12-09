@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,7 +102,26 @@ public class MateriFragment extends Fragment {
         rvMateri = view.findViewById(R.id.rv_materi);
         rvMateri.setHasFixedSize(true);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("data").child("pengenalan").child("pengenalan1");
+        switch (mParam2){
+            case "1":
+                databaseReference = FirebaseDatabase.getInstance().getReference()
+                        .child("data").child("pengenalan").child("pengenalan1");
+                break;
+            case "2":
+                databaseReference = FirebaseDatabase.getInstance().getReference()
+                        .child("data").child("pengenalan").child("pengenalan2");
+                break;
+            case "3":
+                databaseReference = FirebaseDatabase.getInstance().getReference()
+                        .child("data").child("pengenalan").child("pengenalan3");
+                break;
+            default:
+                databaseReference = FirebaseDatabase.getInstance().getReference()
+                        .child("data").child("pengenalan").child("pengenalan1");
+                break;
+
+        }
+//        databaseReference = FirebaseDatabase.getInstance().getReference().child("data").child("pengenalan").child("pengenalan1");
         getAllData();
 
         progressBar = view.findViewById(R.id.progressBar);
@@ -128,7 +148,12 @@ public class MateriFragment extends Fragment {
                         Materi materi = new Materi();
                         materi.setTitle(dataSnapshot.child("title").getValue(String.class));
                         materi.setDescription(dataSnapshot.child("description").getValue(String.class));
-                        materi.setPhoto(dataSnapshot.child("photo").getValue(Integer.class));
+                        String foto = dataSnapshot.child("photo").getValue(String.class);
+                        if (Objects.equals(foto, "0")) {
+                            materi.setPhoto(0);
+                        } else {
+                            materi.setPhoto(getResources().getIdentifier(foto, "drawable", getContext().getPackageName()));
+                        }
                         materi.setReaded(dataSnapshot.child("isReaded").getValue(Boolean.class));
                         list.add(materi);
                     }

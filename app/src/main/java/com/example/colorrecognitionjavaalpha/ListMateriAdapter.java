@@ -34,6 +34,14 @@ public class ListMateriAdapter extends RecyclerView.Adapter<ListMateriAdapter.Li
     @Override
     public void onBindViewHolder(@NonNull ListMateriAdapter.ListViewHolder holder, int position) {
         Materi materi = listMateri.get(position);
+
+//        if (materi.getPhoto() == 0) {
+////            holder.imgPhoto.setVisibility(View.GONE);
+//        } else {
+//            holder.imgPhoto.setVisibility(View.VISIBLE);
+//            holder.imgPhoto.setImageResource(materi.getPhoto());
+//        }
+
         holder.imgPhoto.setImageResource(materi.getPhoto());
         holder.tvName.setText(materi.getTitle());
         holder.tvDescription.setText(materi.getDescription());
