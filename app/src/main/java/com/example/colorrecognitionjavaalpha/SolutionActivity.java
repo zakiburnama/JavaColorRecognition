@@ -27,6 +27,7 @@ public class SolutionActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_solution);
 
+        // Get all algorithm
         Intent intent = getIntent();
         sunflower = intent.getStringExtra("sunflower");
         cross = intent.getStringExtra("whiteCross");
@@ -36,9 +37,11 @@ public class SolutionActivity extends AppCompatActivity {
         OLL = intent.getStringExtra("OLL");
         PLL = intent.getStringExtra("PLL");
 
+        // Set title
         tvTitle = findViewById(R.id.tv_solusi_tittle);
         tvTitle.setText("sunflower");
 
+        // declare all button
         btnClose = findViewById(R.id.iv_solusi_back);
         btnSunflower = findViewById(R.id.button_solution_1);
         btnCross = findViewById(R.id.button_solution_2);
@@ -48,6 +51,11 @@ public class SolutionActivity extends AppCompatActivity {
         btnOLL = findViewById(R.id.button_solution_6);
         btnPLL = findViewById(R.id.button_solution_7);
 
+        // highlight button
+        clearButton();
+        btnSunflower.setBackgroundColor(Color.CYAN);
+
+        // set button to onClick
         btnClose.setOnClickListener(this::onClick);
         btnSunflower.setOnClickListener(this::onClick);
         btnCross.setOnClickListener(this::onClick);
@@ -57,6 +65,7 @@ public class SolutionActivity extends AppCompatActivity {
         btnOLL.setOnClickListener(this::onClick);
         btnPLL.setOnClickListener(this::onClick);
 
+        // add fragment to frag container to desplay
         SolutionFragment solutionFragment = SolutionFragment.newInstance("sunflower", sunflower);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -69,6 +78,8 @@ public class SolutionActivity extends AppCompatActivity {
         String param1 = null;
         String param2 = null;
 
+        clearButton();
+
         switch (view.getId()) {
             case R.id.iv_solusi_back:
                 finish();
@@ -76,30 +87,37 @@ public class SolutionActivity extends AppCompatActivity {
             case R.id.button_solution_1:
                 param1 = "sunflower";
                 param2 = sunflower;
+                btnSunflower.setBackgroundColor(Color.CYAN);
                 break;
             case R.id.button_solution_2:
                 param1 = "cross";
                 param2 = cross;
+                btnCross.setBackgroundColor(Color.CYAN);
                 break;
             case R.id.button_solution_3:
                 param1 = "first layer";
                 param2 = firstLayer;
+                btn1L.setBackgroundColor(Color.CYAN);
                 break;
             case R.id.button_solution_4:
                 param1 = "second layer";
                 param2 = secondLayer;
+                btn2L.setBackgroundColor(Color.CYAN);
                 break;
             case R.id.button_solution_5:
                 param1 = "yellow cross";
                 param2 = yellowCross;
+                btnYellowCross.setBackgroundColor(Color.CYAN);
                 break;
             case R.id.button_solution_6:
                 param1 = "OLL";
                 param2 = OLL;
+                btnOLL.setBackgroundColor(Color.CYAN);
                 break;
             case R.id.button_solution_7:
                 param1 = "PLL";
                 param2 = PLL;
+                btnPLL.setBackgroundColor(Color.CYAN);
                 break;
         }
 
@@ -111,5 +129,16 @@ public class SolutionActivity extends AppCompatActivity {
                 .replace(R.id.fragmentContainerView2, solutionFragment, MateriFragment.class.getSimpleName())
                 .addToBackStack(null)
                 .commit();
+    }
+
+    // To clear button color background when pressed
+    private void clearButton() {
+        btnSunflower.setBackgroundColor(Color.TRANSPARENT);
+        btnCross.setBackgroundColor(Color.TRANSPARENT);
+        btn1L.setBackgroundColor(Color.TRANSPARENT);
+        btn2L.setBackgroundColor(Color.TRANSPARENT);
+        btnYellowCross.setBackgroundColor(Color.TRANSPARENT);
+        btnOLL.setBackgroundColor(Color.TRANSPARENT);
+        btnPLL.setBackgroundColor(Color.TRANSPARENT);
     }
 }
