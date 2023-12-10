@@ -3,15 +3,22 @@ package com.example.colorrecognitionjavaalpha;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SolutionActivity extends AppCompatActivity {
+
+    private String sunflower, cross, firstLayer, secondLayer,yellowCross, OLL, PLL;
+    private TextView tvTitle;
+    private ImageView btnClose;
+    private ImageButton btnSunflower, btnCross, btn1L, btn2L, btnYellowCross, btnOLL, btnPLL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +28,34 @@ public class SolutionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_solution);
 
         Intent intent = getIntent();
-        String sunflower = intent.getStringExtra("sunflower");
+        sunflower = intent.getStringExtra("sunflower");
+        cross = intent.getStringExtra("whiteCross");
+        firstLayer = intent.getStringExtra("whiteCorners");
+        secondLayer = intent.getStringExtra("secondLayer");
+        yellowCross = intent.getStringExtra("yellowCross");
+        OLL = intent.getStringExtra("OLL");
+        PLL = intent.getStringExtra("PLL");
+
+        tvTitle = findViewById(R.id.tv_solusi_tittle);
+        tvTitle.setText("sunflower");
+
+        btnClose = findViewById(R.id.iv_solusi_back);
+        btnSunflower = findViewById(R.id.button_solution_1);
+        btnCross = findViewById(R.id.button_solution_2);
+        btn1L = findViewById(R.id.button_solution_3);
+        btn2L = findViewById(R.id.button_solution_4);
+        btnYellowCross = findViewById(R.id.button_solution_5);
+        btnOLL = findViewById(R.id.button_solution_6);
+        btnPLL = findViewById(R.id.button_solution_7);
+
+        btnClose.setOnClickListener(this::onClick);
+        btnSunflower.setOnClickListener(this::onClick);
+        btnCross.setOnClickListener(this::onClick);
+        btn1L.setOnClickListener(this::onClick);
+        btn2L.setOnClickListener(this::onClick);
+        btnYellowCross.setOnClickListener(this::onClick);
+        btnOLL.setOnClickListener(this::onClick);
+        btnPLL.setOnClickListener(this::onClick);
 
         SolutionFragment solutionFragment = SolutionFragment.newInstance("sunflower", sunflower);
         getSupportFragmentManager()
@@ -29,14 +63,53 @@ public class SolutionActivity extends AppCompatActivity {
                 .add(R.id.fragmentContainerView2, solutionFragment, SolutionFragment.class.getSimpleName())
                 .addToBackStack(null)
                 .commit();
-
-        TextView tvTittle = findViewById(R.id.tv_solusi_tittle);
-        tvTittle.setText("sunflower");
-        ImageView btnClose = findViewById(R.id.iv_solusi_back);
-        btnClose.setOnClickListener(this::onClick);
     }
 
     public void onClick(View view) {
-        finish();
+        String param1 = null;
+        String param2 = null;
+
+        switch (view.getId()) {
+            case R.id.iv_solusi_back:
+                finish();
+                break;
+            case R.id.button_solution_1:
+                param1 = "sunflower";
+                param2 = sunflower;
+                break;
+            case R.id.button_solution_2:
+                param1 = "cross";
+                param2 = cross;
+                break;
+            case R.id.button_solution_3:
+                param1 = "first layer";
+                param2 = firstLayer;
+                break;
+            case R.id.button_solution_4:
+                param1 = "second layer";
+                param2 = secondLayer;
+                break;
+            case R.id.button_solution_5:
+                param1 = "yellow cross";
+                param2 = yellowCross;
+                break;
+            case R.id.button_solution_6:
+                param1 = "OLL";
+                param2 = OLL;
+                break;
+            case R.id.button_solution_7:
+                param1 = "PLL";
+                param2 = PLL;
+                break;
+        }
+
+        tvTitle.setText(param1);
+
+        SolutionFragment solutionFragment = SolutionFragment.newInstance(param1, param2);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView2, solutionFragment, MateriFragment.class.getSimpleName())
+                .addToBackStack(null)
+                .commit();
     }
 }

@@ -571,6 +571,12 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
                 Intent intent = new Intent(this, SolutionActivity.class);
                 intent.putExtra("sunflower", sunflower);
+                intent.putExtra("whiteCross", whiteCross);
+                intent.putExtra("whiteCorners", whiteCorners);
+                intent.putExtra("secondLayer", secondLayer);
+                intent.putExtra("yellowCross", yellowCross);
+                intent.putExtra("OLL", OLL);
+                intent.putExtra("PLL", PLL);
                 startActivity(intent);
 
 
