@@ -423,8 +423,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         double[] pixelHSVBR = mHsv.get(midHor-120-120, midVer+120+120);
         warnaRubik[2][2] = cekWarna(pixelHSVBR[0], pixelHSVBR[1], pixelHSVBR[2]);
 
-        // TODO Delete soon
-        // Tulisan di MID
+        // Center Value
         double[] hsvValue = mHsv.get(midHor-120, midVer+120);
         double hue = hsvValue[0];
         double sat = hsvValue[1];
@@ -432,29 +431,37 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         char warna = cekWarna(hue, sat, val);   // value is string
 
-        Scalar colorPutih = new Scalar(255, 255, 255);
+        // TODO Delete soon (DONE)
+//        // Tulisan di MID
+//        Scalar colorPutih = new Scalar(255, 255, 255);
+//
+//        Point pointText = new Point(midHor, midVer);
+//        Imgproc.putText(mRgba, String.valueOf(warna), pointText, 3, 1, colorPutih, 3);
+//
+//        Point pointTextLeft1 = new Point(midHor, midVer+120);
+//        Imgproc.putText(mRgba, String.valueOf(hue), pointTextLeft1, 3, 1, colorPutih, 3);
+//        Point pointTextLeft2 = new Point(midHor+120, midVer+120);
+//        Imgproc.putText(mRgba, String.valueOf(sat), pointTextLeft2, 3, 1, colorPutih, 3);
+//        Point pointTextLeft3 = new Point(midHor+120+120, midVer+120);
+//        Imgproc.putText(mRgba, String.valueOf(val), pointTextLeft3, 3, 1, colorPutih, 3);
 
-        Point pointText = new Point(midHor, midVer);
-        Imgproc.putText(mRgba, String.valueOf(warna), pointText, 3, 1, colorPutih, 3);
-
-        Point pointTextLeft = new Point(midHor, midVer+120);
-        Imgproc.putText(mRgba, String.valueOf(hue), pointTextLeft, 3, 1, colorPutih, 3);
-
-        //TODO value warna masih salah
+        //TODO value warna masih salah (DONE)
         //Variabel Atas Bawah Kiri Kanan
         Scalar colorTop = new Scalar(0, 0, 0);
         Scalar colorBot = new Scalar(0, 0, 0);
         Scalar colorLef = new Scalar(0, 0, 0);
         Scalar colorRig = new Scalar(0, 0, 0);
 
-        //Library Warna
-        Scalar GREEN    = new Scalar(90, 255, 0);
-        Scalar RED      = new Scalar(200, 0, 255);
-        Scalar BLUE     = new Scalar(255, 0, 0);
-        Scalar YELLOW   = new Scalar(60, 255, 255);
-        Scalar ORANGE   = new Scalar(20, 128, 255);
-        Scalar WHITE    = new Scalar(255, 255, 255);
+        //Library Warna (R, G, B)
         Scalar BLACK    = new Scalar(0, 0, 0);
+        Scalar WHITE    = new Scalar(255, 255, 255);
+
+        Scalar YELLOW   = new Scalar(255, 255, 20);
+        Scalar ORANGE   = new Scalar(255, 100, 0);
+
+        Scalar RED      = new Scalar(255, 0, 50);
+        Scalar GREEN    = new Scalar(20, 255, 20);
+        Scalar BLUE     = new Scalar(20, 20, 255);
 
         //Percabangan warna
         switch (warna) {
@@ -467,7 +474,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
             case 'Y':
                 colorTop = ORANGE;
                 colorBot = RED;
-                colorLef = BLACK;
+                colorLef = BLUE;
                 colorRig = GREEN;
                 break;
             case 'G':
@@ -498,6 +505,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 break;
         }
 
+        // Color Guide atas bawah kiri kanan
         // TOP
         Point pointTopA = new Point(midHor-120-50-50, midVer+120);
         Point pointTopB = new Point(midHor-120-50-50, midVer-120);
