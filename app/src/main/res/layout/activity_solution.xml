@@ -56,17 +56,16 @@
         app:layout_constraintTop_toBottomOf="@+id/progressBar_solusi">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/button_solution_1"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/green2"
             android:scaleType="fitCenter"
             android:src="@drawable/rubik_step1" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/button_solution_2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="4dp"
@@ -75,7 +74,7 @@
             android:src="@drawable/rubik_step2" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/button_solution_3"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="4dp"
@@ -84,7 +83,7 @@
             android:src="@drawable/rubik_step3" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/button_solution_4"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="4dp"
@@ -93,7 +92,16 @@
             android:src="@drawable/rubik_step4" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/button_solution_5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/rubik_step4_2" />
+
+        <ImageButton
+            android:id="@+id/button_solution_6"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="4dp"
@@ -102,7 +110,7 @@
             android:src="@drawable/rubik_step5" />
 
         <ImageButton
-            android:id="@+id/imageButton6"
+            android:id="@+id/button_solution_7"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="4dp"
