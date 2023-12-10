@@ -100,28 +100,28 @@ public class BeginnerFragment extends Fragment {
 
         switch (view.getId()) {
             case R.id.button_sunflower:
-                param1 = "Bagian Rubik";
-                param2 = "1";
+                param1 = "Sunflower";
+                param2 = "5";
                 break;
             case R.id.button_cross:
-                param1 = "Bagian Rubik";
-                param2 = "1";
+                param1 = "Cross";
+                param2 = "6";
                 break;
             case R.id.button_1l:
-                param1 = "Bagian Rubik";
-                param2 = "1";
+                param1 = "Lapisan Pertama (First Layer)";
+                param2 = "7";
                 break;
             case R.id.button_2l:
-                param1 = "Bagian Rubik";
-                param2 = "1";
+                param1 = "Lapisan Kedua (Second Layer)";
+                param2 = "8";
                 break;
             case R.id.button_oll:
-                param1 = "Bagian Rubik";
-                param2 = "1";
+                param1 = "OLL";
+                param2 = "9";
                 break;
             case R.id.button_pll:
-                param1 = "Bagian Rubik";
-                param2 = "1";
+                param1 = "PLL";
+                param2 = "10";
                 break;
         }
 

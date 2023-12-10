@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -127,6 +128,9 @@ public class MateriFragment extends Fragment {
         }
 //        databaseReference = FirebaseDatabase.getInstance().getReference().child("data").child("pengenalan").child("pengenalan1");
         getAllData();
+
+        TextView tvTitle = view.findViewById(R.id.tv_materi_tittle);
+        tvTitle.setText(mParam1);
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setProgress(progress);

@@ -96,15 +96,15 @@ public class IntroductionFragment extends Fragment {
 
         switch (view.getId()){
             case R.id.button_introduction_1:
-                param1 = "Bagian Rubik";
+                param1 = "Pengenalan Bagian Rubik";
                 param2 = "1";
                 break;
             case R.id.button_introduction_2:
-                param1 = "Notasi Pada Rubik";
+                param1 = "Notasi Sisi Rubik";
                 param2 = "2";
                 break;
             case R.id.button_introduction_3:
-                param1 = "Notasi Lanjutan";
+                param1 = "Notasi Tengah Rubik";
                 param2 = "3";
                 break;
             case R.id.button_introduction_4:
