@@ -44,31 +44,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_materi_tittle" />
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:id="@+id/nestedScrollView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/fl_bottom"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/progressBar">-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_materi"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        android:clipToPadding="false"
+        android:foregroundGravity="center"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@+id/fl_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar">
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_materi" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_materi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:foregroundGravity="center"
-            android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            tools:itemCount="1"
-            tools:listitem="@layout/item_materi" />
-
-    </androidx.core.widget.NestedScrollView>
+<!--    </androidx.core.widget.NestedScrollView>-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/fl_bottom"
