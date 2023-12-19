@@ -44,7 +44,7 @@ public class ListMateriAdapter extends RecyclerView.Adapter<ListMateriAdapter.Li
 
         holder.imgPhoto.setImageResource(materi.getPhoto());
         holder.tvName.setText(materi.getTitle());
-        holder.tvDescription.setText(materi.getDescription());
+        holder.tvDescription.setText(materi.getDescription().replace("\\n", "\n"));
         holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listMateri.get(holder.getAdapterPosition())));
 
         if (materi.getReaded()) {
