@@ -186,6 +186,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         mMask = new Mat(height, width, CvType.CV_8UC1);
         contours = new ArrayList<>();
 
+// #### make coordinate to draw 9 rect (3x3) in di camera preview
         // MID
         point1 = new Point(midHor-50, midVer-50);
         point2 = new Point(midHor+50, midVer+50);
@@ -226,6 +227,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     }
 
     private char cekWarna(double hue, double saturation, double value) {
+// #### check color based on HSV and save it to char
         char color = 'X';
         if (saturation < 70) {
             color = 'W';
@@ -248,6 +250,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     }
 
     private void putWarna() {
+// #### Put color on scanned result and save to new array
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeWidth(0);
@@ -256,6 +259,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 r, b,
                 side=0;
 
+        // check color on the center to decide what side rubik'c cube is
         switch (warnaRubik[1][1]) {
             // LEFT = 0
             case 'R':
@@ -305,16 +309,21 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 break;
         }
 
+        // Save coordinate to put color on scanned result (coordinate get from above)
         int temptl=l, temptt=t,
                 temptr=r, temptb=b;
 
+        // Do loop for save scanned resuult to new array and put color on scanned preview
         for (int i=0; i<3; i++) {
+            // move to below every 3 iteration (3 x 3) (j iteration)
             if (i > 0) {
                 temptt+=60;
                 temptb+=60;
             }
             for (int j=0; j<3; j++) {
+                // save to new array
                 warnaSisiRubik[side][i][j] = warnaRubik[i][j];
+                // from this to below just to draw cube result
                 switch (warnaRubik[i][j]) {
                     case 'R':
                         paint.setColor(Color.rgb(255,0,0));
@@ -338,9 +347,12 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                         paint.setColor(Color.rgb(0,0,0));
                         break;
                 }
+                // draw result
                 canvas.drawRect(temptl, temptt, temptr, temptb, paint);
+                // move to right every 3 iteration (j iteration)
                 temptl+=60;
                 temptr+=60;
+                // after 3 iteration, go back to right
                 if (j>1) {
                     temptl=l;
                     temptr=r;
@@ -358,7 +370,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     @Override
     public Mat onCameraFrame(@NonNull CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba = inputFrame.rgba();
-// Make 9 Rect in middle camera
+// #### DRAW 9 Rect in middle camera (3x3)
         // MID TOP
         double[] pixelValue2 = mRgba.get(midHor-120, midVer+120-120);
         Scalar color2 = new Scalar(pixelValue2);
@@ -371,7 +383,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         double[] pixelValue3 = mRgba.get(midHor-120, midVer+120+120);
         Scalar color3 = new Scalar(pixelValue3);
         Imgproc.rectangle (mRgba, point5, point6, color3, 5);
-//
+
         // TOP LEFT
         double[] pixelValueTopLeft = mRgba.get(midHor, midVer+120-120);
         Scalar colorTopLeft = new Scalar(pixelValueTopLeft);
@@ -384,7 +396,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         double[] pixelValueBotLeft = mRgba.get(midHor, midVer+120+120);
         Scalar colorBotLeft = new Scalar(pixelValueBotLeft);
         Imgproc.rectangle (mRgba, pointBotLeft1, pointBotLeft2, colorBotLeft, 5);
-//
+
         // TOP RIGHT
         double[] pixelValueTopRight = mRgba.get(midHor-120-120, midVer+120-120);
         Scalar colorTopRight = new Scalar(pixelValueTopRight);
@@ -398,7 +410,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         Scalar colorBotRight = new Scalar(pixelValueBotRight);
         Imgproc.rectangle (mRgba, pointBotRight1, pointBotRight2, colorBotRight, 5);
 
-// Save Color
+// #### Save Value from camera preview (3x3) to arr warnaRubik
         Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
 
         // LEFT
@@ -423,36 +435,14 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         double[] pixelHSVBR = mHsv.get(midHor-120-120, midVer+120+120);
         warnaRubik[2][2] = cekWarna(pixelHSVBR[0], pixelHSVBR[1], pixelHSVBR[2]);
 
-        // Center Value
-        double[] hsvValue = mHsv.get(midHor-120, midVer+120);
-        double hue = hsvValue[0];
-        double sat = hsvValue[1];
-        double val = hsvValue[2];
-
-        char warna = cekWarna(hue, sat, val);   // value is string
-
-        // TODO Delete soon (DONE)
-//        // Tulisan di MID
-//        Scalar colorPutih = new Scalar(255, 255, 255);
-//
-//        Point pointText = new Point(midHor, midVer);
-//        Imgproc.putText(mRgba, String.valueOf(warna), pointText, 3, 1, colorPutih, 3);
-//
-//        Point pointTextLeft1 = new Point(midHor, midVer+120);
-//        Imgproc.putText(mRgba, String.valueOf(hue), pointTextLeft1, 3, 1, colorPutih, 3);
-//        Point pointTextLeft2 = new Point(midHor+120, midVer+120);
-//        Imgproc.putText(mRgba, String.valueOf(sat), pointTextLeft2, 3, 1, colorPutih, 3);
-//        Point pointTextLeft3 = new Point(midHor+120+120, midVer+120);
-//        Imgproc.putText(mRgba, String.valueOf(val), pointTextLeft3, 3, 1, colorPutih, 3);
-
-        //TODO value warna masih salah (DONE)
-        //Variabel Atas Bawah Kiri Kanan
+// #### GUIDE how to scan (guide how hold rubik when scanning)
+        // Make variabel to guide how to scan
         Scalar colorTop = new Scalar(0, 0, 0);
         Scalar colorBot = new Scalar(0, 0, 0);
         Scalar colorLef = new Scalar(0, 0, 0);
         Scalar colorRig = new Scalar(0, 0, 0);
 
-        //Library Warna (R, G, B)
+        // COLOR Library  (R, G, B)
         Scalar BLACK    = new Scalar(0, 0, 0);
         Scalar WHITE    = new Scalar(255, 255, 255);
 
@@ -463,8 +453,8 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         Scalar GREEN    = new Scalar(20, 255, 20);
         Scalar BLUE     = new Scalar(20, 20, 255);
 
-        //Percabangan warna
-        switch (warna) {
+        //Based on what color on the center, what color should be on the top, bot, left, right
+        switch (warnaRubik[1][1]) {
             case 'R':
                 colorTop = YELLOW;
                 colorBot = WHITE;
@@ -505,7 +495,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 break;
         }
 
-        // Color Guide atas bawah kiri kanan
+        // DRAW Color Guide top, bot, left, right
         // TOP
         Point pointTopA = new Point(midHor-120-50-50, midVer+120);
         Point pointTopB = new Point(midHor-120-50-50, midVer-120);
@@ -539,10 +529,14 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
             case R.id.button_scan:
                 putWarna();
                 break;
+
             case R.id.button_next:
-                //TODO make intent to solution activity and send all data below
+                // TODO make cube condition check (is it already solve and is all color compolete)
+
+                // Find alogoithm base on what rubik condition right now
                 cube.setAllColors(warnaSisiRubik);
 
+                // Result / algorithm to solve rubik
                 sunflower = cube.makeSunflower();
                 whiteCross = cube.makeWhiteCross();
                 whiteCorners = cube.finishWhiteLayer();
@@ -551,24 +545,26 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 OLL = cube.orientLastLayer();
                 PLL = cube.permuteLastLayer();
 
-                movesToPerform = sunflower;
-                movesPerformed = new String();
+                // TODO delete soon
+//                movesToPerform = sunflower;
+//                movesPerformed = new String();
+//
+//                movesIndex = 0; phase = 0;
+//                phaseString = "Sunflower";
+//
+//                Log.i("TAG", "#### MTP: " + movesToPerform);
+//                Log.i("TAG", "#### sunflower: " + sunflower);
+//                Log.i("TAG", "#### whiteCross: " + whiteCross);
+//                Log.i("TAG", "#### whiteCorners: " + whiteCorners);
+//                Log.i("TAG", "#### secondLayer: " + secondLayer);
+//                Log.i("TAG", "#### yellowCross: " + yellowCross);
+//                Log.i("TAG", "#### OLL: " + OLL);
+//                Log.i("TAG", "#### PLL: " + PLL);
+//                Log.i("TAG", "#### MP: " + movesPerformed);
 
-                movesIndex = 0; phase = 0;
-                phaseString = "Sunflower";
+//                cube.setAllColors(warnaSisiRubik);
 
-                Log.i("TAG", "#### MTP: " + movesToPerform);
-                Log.i("TAG", "#### sunflower: " + sunflower);
-                Log.i("TAG", "#### whiteCross: " + whiteCross);
-                Log.i("TAG", "#### whiteCorners: " + whiteCorners);
-                Log.i("TAG", "#### secondLayer: " + secondLayer);
-                Log.i("TAG", "#### yellowCross: " + yellowCross);
-                Log.i("TAG", "#### OLL: " + OLL);
-                Log.i("TAG", "#### PLL: " + PLL);
-                Log.i("TAG", "#### MP: " + movesPerformed);
-
-                cube.setAllColors(warnaSisiRubik);
-
+                // Send data to Solution class
                 Intent intent = new Intent(this, SolutionActivity.class);
                 intent.putExtra("sunflower", sunflower);
                 intent.putExtra("whiteCross", whiteCross);
@@ -579,16 +575,9 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 intent.putExtra("PLL", PLL);
                 startActivity(intent);
 
-
-//                canvas.drawText("awdad", 10, 600, paint);
-
                 break;
+
             case R.id.button_back:
-//                cube.showCube();
-//                cube.testTurning();
-//                paint.setTextSize(24);
-//                canvas.drawText("awdad", 10, 600, paint);
-//                Toast.makeText(this, "WWADA", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }
