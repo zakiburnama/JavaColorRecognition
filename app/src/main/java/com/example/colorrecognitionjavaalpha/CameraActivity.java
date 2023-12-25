@@ -463,10 +463,10 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 colorRig = GREEN;
                 break;
             case 'Y':
-                colorTop = ORANGE;
-                colorBot = RED;
-                colorLef = BLUE;
-                colorRig = GREEN;
+                colorTop = BLUE;
+                colorBot = GREEN;
+                colorLef = RED;
+                colorRig = ORANGE;
                 break;
             case 'G':
                 colorTop = YELLOW;
@@ -487,10 +487,10 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 colorRig = BLUE;
                 break;
             case 'W':
-                colorTop = RED;
-                colorBot = ORANGE;
-                colorLef = BLUE;
-                colorRig = GREEN;
+                colorTop = GREEN;
+                colorBot = BLUE;
+                colorLef = RED;
+                colorRig = ORANGE;
                 break;
             default:
                 break;
