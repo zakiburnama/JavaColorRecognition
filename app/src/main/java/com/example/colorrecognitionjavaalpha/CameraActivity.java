@@ -519,10 +519,10 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     }
 
     private Boolean cekIsSolved() {
-
         int flag = 0;
         char charSide;
 
+        // cek in one side, is all color there same with color at the center
         for (int side=0; side<6; side++) {
             charSide = warnaSisiRubik[side][1][1];
             for (int i=0; i<3; i++) {
@@ -538,7 +538,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     }
 
     private Boolean cekIsColorComplete() {
-
         int flagr = 0,
                 flagy = 0,
                 flagg = 0,
@@ -546,6 +545,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 flago = 0,
                 flagw = 0;
 
+        // count all color r g y b o w, if the number is 9 then its true
         for (int side=0; side<6; side++) {
             for (int i=0; i<3; i++) {
                 for (int j=0; j<3; j++) {
@@ -575,7 +575,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
             }
         }
 
-        return true;
+        return flagr == 9 && flagy == 9 && flagg == 9 && flagb == 9 && flago == 9 && flagw == 9;
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -599,6 +599,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                     break;
                 } else {
                     if (!cekIsColorComplete()){
+                        Toast.makeText(this,"Scan again, color not enough", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     // Find alogoithm base on what rubik condition right now
