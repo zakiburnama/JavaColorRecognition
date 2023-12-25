@@ -20,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -517,6 +518,66 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         return  mRgba;
     }
 
+    private Boolean cekIsSolved() {
+
+        int flag = 0;
+        char charSide;
+
+        for (int side=0; side<6; side++) {
+            charSide = warnaSisiRubik[side][1][1];
+            for (int i=0; i<3; i++) {
+                for (int j=0; j<3; j++) {
+                    if (charSide != warnaSisiRubik[side][i][j]) {
+                        flag++;
+                    }
+                }
+            }
+        }
+
+        return flag <= 0;
+    }
+
+    private Boolean cekIsColorComplete() {
+
+        int flagr = 0,
+                flagy = 0,
+                flagg = 0,
+                flagb = 0,
+                flago = 0,
+                flagw = 0;
+
+        for (int side=0; side<6; side++) {
+            for (int i=0; i<3; i++) {
+                for (int j=0; j<3; j++) {
+                    switch (warnaSisiRubik[side][i][j]) {
+                        case 'R':
+                            flagr++;
+                            break;
+                        case 'Y':
+                            flagy++;
+                            break;
+                        case 'G':
+                            flagg++;
+                            break;
+                        case 'B':
+                            flagb++;
+                            break;
+                        case 'O':
+                            flago++;
+                            break;
+                        case 'W':
+                            flagw++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
 
@@ -531,21 +592,28 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 break;
 
             case R.id.button_next:
-                // TODO make cube condition check (is it already solve and is all color compolete)
+                // TODO make cube condition check (is it already solve (DONE) and is all color compolete)
 
-                // Find alogoithm base on what rubik condition right now
-                cube.setAllColors(warnaSisiRubik);
+                if (cekIsSolved()) {
+                    Toast.makeText(this,"Solved already", Toast.LENGTH_SHORT).show();
+                    break;
+                } else {
+                    if (!cekIsColorComplete()){
+                        break;
+                    }
+                    // Find alogoithm base on what rubik condition right now
+                    cube.setAllColors(warnaSisiRubik);
 
-                // Result / algorithm to solve rubik
-                sunflower = cube.makeSunflower();
-                whiteCross = cube.makeWhiteCross();
-                whiteCorners = cube.finishWhiteLayer();
-                secondLayer = cube.insertAllEdges();
-                yellowCross = cube.makeYellowCross();
-                OLL = cube.orientLastLayer();
-                PLL = cube.permuteLastLayer();
+                    // Result / algorithm to solve rubik
+                    sunflower = cube.makeSunflower();
+                    whiteCross = cube.makeWhiteCross();
+                    whiteCorners = cube.finishWhiteLayer();
+                    secondLayer = cube.insertAllEdges();
+                    yellowCross = cube.makeYellowCross();
+                    OLL = cube.orientLastLayer();
+                    PLL = cube.permuteLastLayer();
 
-                // TODO delete soon
+                    // TODO delete soon
 //                movesToPerform = sunflower;
 //                movesPerformed = new String();
 //
@@ -564,16 +632,18 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
 //                cube.setAllColors(warnaSisiRubik);
 
-                // Send data to Solution class
-                Intent intent = new Intent(this, SolutionActivity.class);
-                intent.putExtra("sunflower", sunflower);
-                intent.putExtra("whiteCross", whiteCross);
-                intent.putExtra("whiteCorners", whiteCorners);
-                intent.putExtra("secondLayer", secondLayer);
-                intent.putExtra("yellowCross", yellowCross);
-                intent.putExtra("OLL", OLL);
-                intent.putExtra("PLL", PLL);
-                startActivity(intent);
+                    // Send data to Solution class
+                    Intent intent = new Intent(this, SolutionActivity.class);
+                    intent.putExtra("sunflower", sunflower);
+                    intent.putExtra("whiteCross", whiteCross);
+                    intent.putExtra("whiteCorners", whiteCorners);
+                    intent.putExtra("secondLayer", secondLayer);
+                    intent.putExtra("yellowCross", yellowCross);
+                    intent.putExtra("OLL", OLL);
+                    intent.putExtra("PLL", PLL);
+                    startActivity(intent);
+
+                }
 
                 break;
 
