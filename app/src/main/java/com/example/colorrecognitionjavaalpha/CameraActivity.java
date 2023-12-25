@@ -592,8 +592,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 break;
 
             case R.id.button_next:
-                // TODO make cube condition check (is it already solve (DONE) and is all color compolete)
-
                 if (cekIsSolved()) {
                     Toast.makeText(this,"Solved already", Toast.LENGTH_SHORT).show();
                     break;
