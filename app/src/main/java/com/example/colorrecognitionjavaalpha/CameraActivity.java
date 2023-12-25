@@ -38,7 +38,6 @@ import java.util.List;
 
 
 public class CameraActivity extends org.opencv.android.CameraActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
-
     private Mat mRgba;  // Input frame
     private Mat mHsv;  // Frame converted to HSV color space
     private Mat mMask;  // Binary mask for color detection
@@ -67,6 +66,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
 
     private Cube cube = new Cube();
+    private final CubeScanCheck cubeScanCheck = new CubeScanCheck();
 
     private Integer midHor, midVer;
 
@@ -227,28 +227,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         contours.clear();
     }
 
-    private char cekWarna(double hue, double saturation, double value) {
-// #### check color based on HSV and save it to char
-        char color = 'X';
-        if (saturation < 70) {
-            color = 'W';
-        } else if (value < 70) {
-            color = 'X';
-        } else {
-            if (hue < 20) {
-                color = 'O';
-            }  else if (hue < 64) {
-                color = 'Y';
-            } else if (hue < 90) {
-                color = 'G';
-            } else if (hue < 130) {
-                color = 'B';
-            } else {
-                color = 'R';
-            }
-        }
-        return color;
-    }
 
     private void putWarna() {
 // #### Put color on scanned result and save to new array
@@ -416,25 +394,25 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
 
         // LEFT
         double[] pixelHSVTL = mHsv.get(midHor, midVer+120-120);
-        warnaRubik[0][0] = cekWarna(pixelHSVTL[0], pixelHSVTL[1], pixelHSVTL[2]);
+        warnaRubik[0][0] = cubeScanCheck.cekWarna(pixelHSVTL[0], pixelHSVTL[1], pixelHSVTL[2]);
         double[] pixelHSVML = mHsv.get(midHor, midVer+120);
-        warnaRubik[1][0] = cekWarna(pixelHSVML[0], pixelHSVML[1], pixelHSVML[2]);
+        warnaRubik[1][0] = cubeScanCheck.cekWarna(pixelHSVML[0], pixelHSVML[1], pixelHSVML[2]);
         double[] pixelHSVBL = mHsv.get(midHor, midVer+120+120);
-        warnaRubik[2][0] = cekWarna(pixelHSVBL[0], pixelHSVBL[1], pixelHSVBL[2]);
+        warnaRubik[2][0] = cubeScanCheck.cekWarna(pixelHSVBL[0], pixelHSVBL[1], pixelHSVBL[2]);
         // MID
         double[] pixelHSVTM = mHsv.get(midHor-120, midVer+120-120);
-        warnaRubik[0][1] = cekWarna(pixelHSVTM[0], pixelHSVTM[1], pixelHSVTM[2]);
+        warnaRubik[0][1] = cubeScanCheck.cekWarna(pixelHSVTM[0], pixelHSVTM[1], pixelHSVTM[2]);
         double[] pixelHSVMM = mHsv.get(midHor-120, midVer+120);
-        warnaRubik[1][1] = cekWarna(pixelHSVMM[0], pixelHSVMM[1], pixelHSVMM[2]);
+        warnaRubik[1][1] = cubeScanCheck.cekWarna(pixelHSVMM[0], pixelHSVMM[1], pixelHSVMM[2]);
         double[] pixelHSVBM = mHsv.get(midHor-120, midVer+120+120);
-        warnaRubik[2][1] = cekWarna(pixelHSVBM[0], pixelHSVBM[1], pixelHSVBM[2]);
+        warnaRubik[2][1] = cubeScanCheck.cekWarna(pixelHSVBM[0], pixelHSVBM[1], pixelHSVBM[2]);
         // RIGHT
         double[] pixelHSVTR = mHsv.get(midHor-120-120, midVer+120-120);
-        warnaRubik[0][2] = cekWarna(pixelHSVTR[0], pixelHSVTR[1], pixelHSVTR[2]);
+        warnaRubik[0][2] = cubeScanCheck.cekWarna(pixelHSVTR[0], pixelHSVTR[1], pixelHSVTR[2]);
         double[] pixelHSVMR = mHsv.get(midHor-120-120, midVer+120);
-        warnaRubik[1][2] = cekWarna(pixelHSVMR[0], pixelHSVMR[1], pixelHSVMR[2]);
+        warnaRubik[1][2] = cubeScanCheck.cekWarna(pixelHSVMR[0], pixelHSVMR[1], pixelHSVMR[2]);
         double[] pixelHSVBR = mHsv.get(midHor-120-120, midVer+120+120);
-        warnaRubik[2][2] = cekWarna(pixelHSVBR[0], pixelHSVBR[1], pixelHSVBR[2]);
+        warnaRubik[2][2] = cubeScanCheck.cekWarna(pixelHSVBR[0], pixelHSVBR[1], pixelHSVBR[2]);
 
 // #### GUIDE how to scan (guide how hold rubik when scanning)
         // Make variabel to guide how to scan
@@ -518,66 +496,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         return  mRgba;
     }
 
-    private Boolean cekIsSolved() {
-        int flag = 0;
-        char charSide;
-
-        // cek in one side, is all color there same with color at the center
-        for (int side=0; side<6; side++) {
-            charSide = warnaSisiRubik[side][1][1];
-            for (int i=0; i<3; i++) {
-                for (int j=0; j<3; j++) {
-                    if (charSide != warnaSisiRubik[side][i][j]) {
-                        flag++;
-                    }
-                }
-            }
-        }
-
-        return flag <= 0;
-    }
-
-    private Boolean cekIsColorComplete() {
-        int flagr = 0,
-                flagy = 0,
-                flagg = 0,
-                flagb = 0,
-                flago = 0,
-                flagw = 0;
-
-        // count all color r g y b o w, if the number is 9 then its true
-        for (int side=0; side<6; side++) {
-            for (int i=0; i<3; i++) {
-                for (int j=0; j<3; j++) {
-                    switch (warnaSisiRubik[side][i][j]) {
-                        case 'R':
-                            flagr++;
-                            break;
-                        case 'Y':
-                            flagy++;
-                            break;
-                        case 'G':
-                            flagg++;
-                            break;
-                        case 'B':
-                            flagb++;
-                            break;
-                        case 'O':
-                            flago++;
-                            break;
-                        case 'W':
-                            flagw++;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-
-        return flagr == 9 && flagy == 9 && flagg == 9 && flagb == 9 && flago == 9 && flagw == 9;
-    }
-
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
 
@@ -592,11 +510,11 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
                 break;
 
             case R.id.button_next:
-                if (cekIsSolved()) {
+                if (cubeScanCheck.cekIsSolved(warnaSisiRubik)) {
                     Toast.makeText(this,"Solved already", Toast.LENGTH_SHORT).show();
                     break;
                 } else {
-                    if (!cekIsColorComplete()){
+                    if (!cubeScanCheck.cekIsColorComplete(warnaSisiRubik)){
                         Toast.makeText(this,"Scan again, color not enough", Toast.LENGTH_SHORT).show();
                         break;
                     }
