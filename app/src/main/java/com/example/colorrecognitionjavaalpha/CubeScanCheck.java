@@ -1,5 +1,7 @@
 package com.example.colorrecognitionjavaalpha;
 
+import android.util.Log;
+
 public class CubeScanCheck {
 
 
@@ -40,9 +42,12 @@ public class CubeScanCheck {
                 for (int j = 0; j < 3; j++) {
                     if (charSide != warnaSisiRubik[side][i][j]) {
                         flag++;
+                        break;
                     }
                 }
+                if (flag > 0 ) break;
             }
+            if (flag > 0 ) break;
         }
 
         return flag <= 0;
