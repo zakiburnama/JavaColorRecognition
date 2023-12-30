@@ -771,6 +771,8 @@ public class Cube {
         String moves = new String();
 
         //Brings up white edges in D Layer with white facing down
+        //
+        // Bagian rubik paling bawah (D), menghadap ke bawah
         if(numWhiteEdgesOriented() < 5) {
             for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
@@ -787,6 +789,8 @@ public class Cube {
         }
 
         //Orients white edges in D Layer with white NOT facing down
+        //
+        // Bagian rubik paling bawah (D), tidak menghadap ke bawah
         if(numWhiteEdgesOriented() < 5) {
             for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
@@ -813,6 +817,8 @@ public class Cube {
         //Brings up white edges in E Layer
         //This one is filled with many if blocks because there are eight different possible orientations for
         //white edges in the E Layer, with none sharing a common move to bring it into the U layer.
+        //
+        // Bagian rubik tengah (secara vertikal) (E)
         if(numWhiteEdgesOriented() < 5) {
             for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
@@ -861,6 +867,8 @@ public class Cube {
         //Fix any edges that are incorrectly oriented in the U Layer
         //For the sake of reducing movecount, I assigned a set of moves for each position,
         //but a solver may simply make U turns to bring the edge in front and perform "F U' R"
+        //
+        // Bagian rubik atas (U), dan tidak menghadap ke atas
         if(numWhiteEdgesOriented() < 5) {
             for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
@@ -931,6 +939,7 @@ public class Cube {
      * Utility method for makeSunflower()
      * @return the number of white edges that are currently in the U layer
      */
+// #### menghitung jumlah warna edges putih di bagian U (center kuning)
     public int numWhiteEdgesOriented() {
         int numOriented = 0;
         for(int i = 0; i < 3; i++) {
