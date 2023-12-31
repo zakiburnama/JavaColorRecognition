@@ -767,6 +767,11 @@ public class Cube {
      * The sunflower can then be used by makeCross() to make the white cross
      * @return moves used to make sunflower
      */
+
+    /** TODO TAHAP 2
+    * Tahap ini membuat sunflower (edges putih pada center kuning)
+    */
+
     public String makeSunflower() {
         String moves = new String();
 
@@ -1565,6 +1570,19 @@ public class Cube {
      * face, the user inputed as if blue was above and green was below the yellow face, the blue and green
      * being in the opposite orientation for when inputing colors on the white face.
      * @param colors all colors to be put into the cube
+     */
+
+    /** TODO TAHAP 1
+     * Set semua warna rubik dari inputan user ke dalam array baru, yg tadinya array 6x3x3 ke 3x3x3
+     * Pada tahap ini memasukkan semua warna dari setiap sisi ke dalam bentuk array baru
+     * dimulai dari sisi kiri (center merah) index 0 dir L
+     * ke sisi atas (center kuning) index 1 dir U
+     * ke sisi depan (center hijau) index 2 dir F
+     * ke sisi belakang (center biru) index 3 dir B
+     * ke sisi kanan (center oren) index 4 dir R
+     * ke sisi bawah (center putih) index 5 dir D
+     * /
+     * dilakukan nested loop 3 3 lalu masukkan ke setia dir (L U F B R D)
      */
     public void setAllColors(char[][][] colors) {
         //Set Left colors
