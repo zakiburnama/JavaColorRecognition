@@ -738,7 +738,13 @@ public class Cube {
     /**
      * TODO TAHAP 3 WHITE CROSS
      * Dilakukan untuk membuat white cross, center putih dikelilingi oleh putih edges
-     *
+     * / numWhiteEdgesOriented()
+     * / verticalFace
+     * selama edges putih masih ada di atas (U) do->
+     * - Lakukan perulangan sampai bertemu warna putih
+     * --- loop 2x untuk mengecek kedua sisi edges
+     * --- jika R&L G&F O&R B&B move += vericalFace + 2
+     * - jika tidak bertemu maka move += U (diputra sampai edges cocok dengan center)
      */
     public String makeWhiteCross() {
         String moves = new String();
