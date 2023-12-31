@@ -734,6 +734,12 @@ public class Cube {
      * one at a time, creating the white cross.
      * @return the moves used to create the white cross
      */
+
+    /**
+     * TODO TAHAP 3 WHITE CROSS
+     * Dilakukan untuk membuat white cross, center putih dikelilingi oleh putih edges
+     *
+     */
     public String makeWhiteCross() {
         String moves = new String();
 
@@ -768,8 +774,56 @@ public class Cube {
      * @return moves used to make sunflower
      */
 
-    /** TODO TAHAP 2
+    /** TODO TAHAP 2 SUNFLOWER
     * Tahap ini membuat sunflower (edges putih pada center kuning)
+     * /
+     * 1. Melakukan cek apakah dibagian atas (yellow center) memiliki edges putih < 5
+     * - jika iya maka cari edges putih pada bagian bawah (D) (white center) dan menghadap ke bawah
+     * - lalu make a move +=
+     * -- prepareSlot (memperisapkan tempat untuk membawa edges putih keatas) -> move ==> selama ada warna putih di atas (U) move += U
+     * -- vertical face (mencari menghadap mana kepingan rubik ini) -> move ==> (jika x == 0 maka L), (else if x == 1 (if y == 0 maka F) (else B)), (else R)   ==> diakhir +2
+     * /
+     * 2. Melakukan cek apakah dibagian atas (yellow center) memiliki edges putih < 5
+     * - jika iya maka cari edges putih pada bagian bawah (D) (white center) dan tidak menghadap ke bawah
+     * -- move =>
+     * -- prepareSlot +
+     * -- verticalFace (mencari menghadap mana kepingan rubik ini) -> move ==>
+     * --- jika menghadap F maka move = F' U' R
+     * --- jika menghadap R maka move = R' U' B
+     * --- jika menghadap B maka move = B' U' L
+     * --- jika menghadap L maka move = L' U' F
+     * /
+     * 3. Melakukan cek apakah dibagian atas (yellow center) memiliki edges putih < 5
+     * - jika iya maka cari edges putih pada bagian tengah (E) (middel layer, vertically)
+     * -- ada 4 edges yg perlu di cek pada layer ini
+     * -- mencari warna putih (W) dengan melaukan perulangan 0-1 untuk mengecek kedua sisi edges (edges ada 2 warna)
+     * --- jika warna putih berada pada posisi 0 0 (kiri depan)
+     * ----- jika warna putih menghadap ke kiri (L) maka move += prepareSlot + F
+     * ----- else maka move += prepareSlot + L'
+     * --- jika warna putih berada pada posisi 2 0 (kanan depan)
+     * ----- jika menghadap depan (F) maka move += prepareSlot + R
+     * ----- jika menghadap kanan (R) maka move += prepareSlot + F'
+     * --- jika warna putih berada pada posisi 2 2 (kanan belakang)
+     * ----- jika menghadap belakang (B) maka move += prepareSlot + R'
+     * ----- else maka move += prepareSlot + B
+     * --- else
+     * ----- jika menghadap belakang (B) maka move += prepareSlot + L
+     * ----- else maka move += prepareSlot + B'
+     * /
+     * 4. Melakukan cek apakah dibagian atas (yellow center) memiliki edges putih < 5
+     * - jika iya maka cari edges putih pada bagian atas (U) dan tidak menghadap ke atas
+     * -- jika menghadap depan (F) maka move += F U' R
+     * -- jika menghadap kanan (R) maka move += R U' B
+     * -- jika menghadap belakang (B) maka move += B U' L
+     * -- jika menghadap kiri (L) maka move += L U' F
+     * /
+     * 5. Melakukan cek apakah dibagian atas (yellow center) memiliki edges putih < 4
+     * - jika iya lakukan makeSunflower()
+     * 6. optimizeMoves (move)
+     * /
+     * prepareSlot
+     * numWhiteEdgesOriented
+     * verticalFace
     */
 
     public String makeSunflower() {
@@ -917,6 +971,7 @@ public class Cube {
      * @param color the color which should not remain in the prepared slot
      * @return moves used to prepare the edge slot
      */
+// #### mempersiapkan slot kosong pada bagian atas (U) dengan melakukan move U sampai slot tersedia
     public String prepareSlot(int x, int y, int z, char color) {
         int numUTurns = 0;
         CubieColor[] tempColor = cubiePos[x][y][z].getColors();
@@ -1572,7 +1627,7 @@ public class Cube {
      * @param colors all colors to be put into the cube
      */
 
-    /** TODO TAHAP 1
+    /** TODO TAHAP 1 SET COLOR
      * Set semua warna rubik dari inputan user ke dalam array baru, yg tadinya array 6x3x3 ke 3x3x3
      * Pada tahap ini memasukkan semua warna dari setiap sisi ke dalam bentuk array baru
      * dimulai dari sisi kiri (center merah) index 0 dir L
