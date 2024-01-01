@@ -1025,6 +1025,17 @@ public class Cube {
      * white corners until there are no more white corners in the U layer.
      * @return the moves used to complete the white layer
      */
+
+    /**
+     * TODO TAHAP 4 FINISH WHITE LAYER
+     * moves+=insertCornersInU();
+     * - Nested Loop pada bagian atas (U), jika bertemu warna putih dan corner maka
+     * --
+     * -- rotas y di sisi yg kososng
+     * moves+=insertMisorientedCorners();
+     * -
+     * while(whiteCornerinU()) { ^^ }; => nested loop mengecek warna putih pada sisi atas (U) jika ada then do.
+     */
     public String finishWhiteLayer() {
         String moves = new String();
         //At least check once for corners to be inserted/fixed, and repeat as necessary
@@ -1201,6 +1212,10 @@ public class Cube {
     /**
      * Utilizes the methods insertEdgesInU() and insertMisorientedEdges() to complete the second layer
      * @return A String for the moves used to complete the second layer
+     */
+
+    /**
+     * TODO TAHAP 5 insert ALL EDGES, 2nd LAYER
      */
     public String insertAllEdges() {
         String moves = new String();
@@ -1392,6 +1407,10 @@ public class Cube {
      * Orients all yellow edges in the U layer based on their current state.
      * @return moves used to make the yellow cross
      */
+
+    /**
+     * TODO TAHAP 6 MAKE YELLOW CROSS
+     */
     public String makeYellowCross() {
         String moves = new String();
         String status = yellowEdgeOrientation();
@@ -1422,6 +1441,10 @@ public class Cube {
      * a beginner's method algorithm. (This has been left separate from makeYellowCross()
      * to help beginners easily follow the steps to orient the last layer completely.)
      * @return moves used to orient last layer pieces
+     */
+
+    /**
+     * TODO TAHAP 7 OLL
      */
     public String orientLastLayer() {
         String moves = new String();
@@ -1461,6 +1484,11 @@ public class Cube {
      * Permutes the last layer such that all oriented pieces are in the correct positions
      * relative to each other. First permutes the corners, then the edges.
      * @return the moves used to permute the last layer
+     */
+
+    /**
+     * TODO TAHAP 8 PLL
+     * @return
      */
     public String permuteLastLayer() {
         String moves = new String();
@@ -1633,7 +1661,8 @@ public class Cube {
      * @param colors all colors to be put into the cube
      */
 
-    /** TODO TAHAP 1 SET COLOR
+    /**
+     * TODO TAHAP 1 SET COLOR
      * Set semua warna rubik dari inputan user ke dalam array baru, yg tadinya array 6x3x3 ke 3x3x3
      * Pada tahap ini memasukkan semua warna dari setiap sisi ke dalam bentuk array baru
      * dimulai dari sisi kiri (center merah) index 0 dir L
