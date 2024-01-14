@@ -350,6 +350,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
     public Mat onCameraFrame(@NonNull CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba = inputFrame.rgba();
 // #### DRAW 9 Rect in middle camera (3x3)
+        // imgproc = image processing
         // MID TOP
         double[] pixelValue2 = mRgba.get(midHor-120, midVer+120-120);
         Scalar color2 = new Scalar(pixelValue2);
@@ -390,6 +391,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity implements
         Imgproc.rectangle (mRgba, pointBotRight1, pointBotRight2, colorBotRight, 5);
 
 // #### Save Value from camera preview (3x3) to arr warnaRubik
+        // cvtColor = Converts an image from one color space to another (HSV color space)
         Imgproc.cvtColor(mRgba, mHsv, Imgproc.COLOR_RGB2HSV);
 
         // LEFT
