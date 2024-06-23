@@ -113,11 +113,21 @@ public class IntroductionFragment extends Fragment {
                 break;
         }
 
-        MateriFragment moveFragment = MateriFragment.newInstance(param1, param2);
-        getParentFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainerView, moveFragment, MateriFragment.class.getSimpleName())
-                .addToBackStack(null)
-                .commit();
+        //new , perveiosly whithout if
+        if (mParam1 == "solution") {
+            MateriFragment moveFragment = MateriFragment.newInstance(param1, param2);
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView2, moveFragment, MateriFragment.class.getSimpleName())
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            MateriFragment moveFragment = MateriFragment.newInstance(param1, param2);
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, moveFragment, MateriFragment.class.getSimpleName())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }
