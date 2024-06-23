@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -45,6 +47,7 @@ public class SolutionFragment extends Fragment {
     private Integer listSize;
     private RecyclerView rvSolution, rvMove;
     private ImageView btnPrev, btnPause, btnNext;
+    private TextToSpeech textToSpeech;
 
 
     public SolutionFragment() {
@@ -96,6 +99,17 @@ public class SolutionFragment extends Fragment {
             }
 
         }
+
+        textToSpeech = new TextToSpeech(getActivity().getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                Log.i("TAG", "#### ststuas" +status);
+                if (status == TextToSpeech.SUCCESS) {
+//                    int lang = textToSpeech.setLanguage(Locale.forLanguageTag("id"));
+                    int lang = textToSpeech.setLanguage(Locale.ENGLISH);
+                }
+            }
+        });
     }
 
     @Override
@@ -246,6 +260,10 @@ public class SolutionFragment extends Fragment {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                Log.i("TAG", "#### list 0 = " +listMove.get(pos));
+                String text = listMove.get(pos).toString();
+                textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+
                 if (pos < listSize){
                     pos++;
                     Log.i("TAG", "#### pos setAuto if " + pos);
