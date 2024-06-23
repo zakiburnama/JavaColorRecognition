@@ -19,6 +19,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="?attr/colorOnBackground" />
+<!--new-->
+    <ImageView
+        android:id="@+id/iv_solusi_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:contentDescription="Back button"
+        android:onClick="onClick"
+        android:minHeight="48dp"
+        android:src="@drawable/baseline_info_24"
+        app:layout_constraintEnd_toEndOf="@+id/iv_solusi_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorOnBackground" />
 
     <TextView
         android:id="@+id/tv_solusi_tittle"
