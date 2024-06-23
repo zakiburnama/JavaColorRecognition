@@ -75,8 +75,8 @@ public class SolutionActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        String param1 = null;
-        String param2 = null;
+        String param1;
+        String param2;
 
         clearButton();
 
@@ -84,45 +84,70 @@ public class SolutionActivity extends AppCompatActivity {
             case R.id.iv_solusi_back:
                 finish();
                 break;
+            case R.id.iv_solusi_info:
+                IntroductionFragment introductionFragment = new IntroductionFragment().newInstance("solution", "tes");
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainerView2, introductionFragment, IntroductionFragment.class.getSimpleName())
+                        .addToBackStack(null)
+                        .commit();
+                break;
             case R.id.button_solution_1:
                 param1 = "sunflower";
                 param2 = sunflower;
                 btnSunflower.setBackgroundColor(Color.CYAN);
+                movetosolution(param1, param2);
                 break;
             case R.id.button_solution_2:
                 param1 = "cross";
                 param2 = cross;
                 btnCross.setBackgroundColor(Color.CYAN);
+                movetosolution(param1, param2);
                 break;
             case R.id.button_solution_3:
                 param1 = "first layer";
                 param2 = firstLayer;
                 btn1L.setBackgroundColor(Color.CYAN);
+                movetosolution(param1, param2);
                 break;
             case R.id.button_solution_4:
                 param1 = "second layer";
                 param2 = secondLayer;
                 btn2L.setBackgroundColor(Color.CYAN);
+                movetosolution(param1, param2);
                 break;
             case R.id.button_solution_5:
                 param1 = "yellow cross";
                 param2 = yellowCross;
                 btnYellowCross.setBackgroundColor(Color.CYAN);
+                movetosolution(param1, param2);
                 break;
             case R.id.button_solution_6:
                 param1 = "OLL";
                 param2 = OLL;
                 btnOLL.setBackgroundColor(Color.CYAN);
+                movetosolution(param1, param2);
                 break;
             case R.id.button_solution_7:
                 param1 = "PLL";
                 param2 = PLL;
                 btnPLL.setBackgroundColor(Color.CYAN);
+                movetosolution(param1, param2);
                 break;
         }
 
-        tvTitle.setText(param1);
+//        tvTitle.setText(param1);
+//
+//        SolutionFragment solutionFragment = SolutionFragment.newInstance(param1, param2);
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fragmentContainerView2, solutionFragment, MateriFragment.class.getSimpleName())
+//                .addToBackStack(null)
+//                .commit();
+    }
 
+    private void movetosolution(String param1, String param2){
+        tvTitle.setText(param1);
         SolutionFragment solutionFragment = SolutionFragment.newInstance(param1, param2);
         getSupportFragmentManager()
                 .beginTransaction()
