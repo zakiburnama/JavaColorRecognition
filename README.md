@@ -35,6 +35,17 @@ This Android application utilizes **Computer Vision** to help users solve a **3x
 
 ---
 
+## 🙏 Credits & Licenses
+
+- The Rubik's Cube model and solving logic (`Cube.java`, `Cubie.java`, `CubieColor.java`) are based on the
+  [Rubik's Cube solver](https://github.com/SChakravorti21/Rubiks-Cube-Solver) by **Shoumyo Chakravorti** (Copyright © 2017), licensed under the **MIT License**.
+  This project modifies that code.
+- **OpenCV 4.6.0** is licensed under the **Apache License 2.0**.
+- Other dependencies (AndroidX, Material Components, Firebase) are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md),
+  which also contains the full MIT license text.
+
+---
+
 ## 📦 Installation  
 
 ### Prerequisites  
